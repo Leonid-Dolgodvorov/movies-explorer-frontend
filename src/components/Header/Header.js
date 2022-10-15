@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Header.css"
+import Burger from "../Burger/Burger"
 
-const isLoggedIn = false;
-const isBurgerOpened = false;
+const isLoggedIn = true;
+const isBurgerOpened = true;
 
 function Header() {
   return (
@@ -26,8 +27,15 @@ function Header() {
               <Link className="button__header button__header_grey" to="/profile">Аккаунт</Link>
             </nav>
             <button className="header__burger"/>
-          </header>
+          </header>          
       }
+      { 
+            !isBurgerOpened ?
+              <>
+              </>
+            :
+              <Burger />
+          }
     </>
   );
 };

@@ -1,6 +1,4 @@
 .promo {
-  display: flex;
-  justify-content: space-between;
   width: 100%;
   margin: 0 auto;
   padding-top: 50px;
@@ -10,6 +8,13 @@
 }
 
 .promo__container {
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  max-width: 1280px;  
+}
+
+.promo__text-container {
   display: flex;
   flex-direction: column;
   max-width: 640px;  
@@ -66,12 +71,12 @@
 }
 
 @media screen and (max-width: 900px) {
-  .promo {
+  .promo__container {
     flex-direction: column-reverse;
     justify-content: center;
   }
 
-  .promo__container {
+  .promo__text-container {
     margin: 0 auto;
   }
 

@@ -11,7 +11,7 @@ function AboutMe() {
           <div className="aboutme__container">
             <h3 className="aboutme__name">Леонид</h3>
               <p className="aboutme__job">Студент курса по фронтенд-разработке, 34 года</p>
-              <p className="aboutme__info">Учусь, постигаю</p>
+              <p className="aboutme__info">Родился и проживаю в г.Екатеринбург. Закончил бакалавриат и магистратуру УрГУ (ныне УрФУ) по специальности "Экономическая теория".</p>
                 <div className="aboutme__links">
                   <div className="aboutme__social-item">
                     <a className="aboutme__link" href="https://t.me/dolgodvorovl" target="_blank">
