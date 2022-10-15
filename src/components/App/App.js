@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 import { Switch, Route } from "react-router-dom";
-import './App.css';
+import "./App.css";
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
 import SavedMovies from "../SavedMovies/SavedMovies";
@@ -16,7 +16,7 @@ function App() {
         <Route exact path="/">
           <Main/>
         </Route>
-        <Route path="/movies">
+        {/* <Route path="/movies">
           <Movies/>
         </Route>
         <Route path="/saved-movies">
@@ -30,7 +30,7 @@ function App() {
         </Route>
         <Route path="/signup">
           <Register/>
-        </Route>
+        </Route> */}
       </Switch>
     </div>
   );
