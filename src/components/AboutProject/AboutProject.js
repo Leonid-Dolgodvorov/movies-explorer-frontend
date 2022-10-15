@@ -23,7 +23,7 @@ function AboutProject() {
               <p className="aboutproject__rectangle-text">Back-end</p>
             </div>
             <div className="aboutproject__schedule-element aboutproject__schedule-element_type_right">
-              <div className="aboutproject__rectangle aboutproject__rectangle_color_grey">4 неделя</div>
+              <div className="aboutproject__rectangle aboutproject__rectangle_color_grey">4 недели</div>
               <p className="aboutproject__rectangle-text">Front-end</p>
             </div>
           </div>

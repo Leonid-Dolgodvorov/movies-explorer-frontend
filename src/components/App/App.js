@@ -26,9 +26,9 @@ function App() {
         <Route path="/profile">
           <Profile/>
         </Route>
-{/*        <Route path="/signin">
+        <Route path="/signin">
           <Login/>
-        </Route> */}
+        </Route>
         <Route path="/signup">
           <Register/>
         </Route>
