@@ -12,12 +12,12 @@ const Main = () => {
   return (
     <>
       <div className="main">
-        <Header />      
-        <Promo />
-        <AboutProject />
-        <Techs />
-        <AboutMe />
-        <Footer />
+        <Header/>      
+        <Promo/>
+        <AboutProject/>
+        <Techs/>
+        <AboutMe/>
+        <Footer/>
       </div>
     </>
   );
