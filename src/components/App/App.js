@@ -17,25 +17,24 @@ function App() {
         <Route exact path="/">
           <Main/>
         </Route>
-        {/* <Route path="/movies">
+{/*         <Route path="/movies">
           <Movies/>
         </Route>
         <Route path="/saved-movies">
           <SavedMovies/>
-        </Route>
+        </Route> */}
         <Route path="/profile">
           <Profile/>
         </Route>
-        <Route path="/signin">
+{/*        <Route path="/signin">
           <Login/>
         </Route>
         <Route path="/signup">
           <Register/>
-        </Route>
-         */
+        </Route> */}
         <Route path="*">
           <NotFound/>
-        </Route>}
+        </Route>
       </Switch>
     </div>
   );
