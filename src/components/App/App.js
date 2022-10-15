@@ -28,10 +28,10 @@ function App() {
         </Route>
 {/*        <Route path="/signin">
           <Login/>
-        </Route>
+        </Route> */}
         <Route path="/signup">
           <Register/>
-        </Route> */}
+        </Route>
         <Route path="*">
           <NotFound/>
         </Route>
