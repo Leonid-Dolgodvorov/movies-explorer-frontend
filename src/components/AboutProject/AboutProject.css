@@ -1,18 +1,18 @@
 .aboutproject {
   width: 100%;
-  min-height: 388px;
-  margin: 110px auto;
+  margin: 112px auto 109px;
   padding: 0 70px;
   box-sizing: border-box;
 }
 
 .aboutproject__title {
-  padding-bottom: 23px;
+  padding-bottom: 22px;
   margin: 0;
   border-bottom: 1px solid #000;
   font-weight: 400;
   font-size: 22px;
   line-height: 27px;
+  letter-spacing: -0.04em;
 }
 
 .aboutproject__main {
@@ -29,7 +29,7 @@
 }
 
 .aboutproject__text-container {
-  margin-right: 40px;
+  margin-right: 51px;
 }
 
 .aboutproject__text-container:last-child {
@@ -41,6 +41,7 @@
   font-weight: 400;
   font-size: 20px;
   line-height: 24px;
+  letter-spacing: -0.04em;
 }
 
 .aboutproject__text {
@@ -96,12 +97,28 @@
       margin: 90px auto;
       padding: 0 50px;
   }
-  .aboutproject__schedule-container {
-      margin-top: 90px;
+  .aboutproject__text-container {
+    margin-right: 40px;
+  }
+  .aboutproject__subtitle {
+    margin-bottom: 23px;
   }
   .aboutproject__text {
-      font-size: 12px;
-      line-height: 18px;
+    font-size: 12px;
+    line-height: 18px;
+  }
+  .aboutproject__schedule-container {
+      margin-top: 93px;
+  }
+  .aboutproject__schedule-element_type_left {
+    width: 21%;
+  }
+  
+  .aboutproject__schedule-element_type_right {
+    width: 79%;
+  }
+  .aboutproject__rectangle-text {
+    margin: 13px 0 0 0;
   }
 }
 
@@ -112,6 +129,8 @@
   }
   .aboutproject__title {
     padding-bottom: 28px;
+    font-size: 18px;
+    line-height: 22px;
   }
   .aboutproject__textblock {
       flex-direction: column;
