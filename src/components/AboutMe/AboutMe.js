@@ -31,17 +31,17 @@ function AboutMe() {
           <h3 className="portfolio__title">Портфолио</h3>
           <ul className="portfolio__projects">
             <li className="portfolio__project">
-              <a className="portfolio__link" href="#" target="_blank">
+              <a className="portfolio__link" href="https://leonid-dolgodvorov.github.io/russian-travel/index.html" target="_blank">
                 Статичный сайт <p className="portfolio__icon">&#8599;</p>
               </a>
             </li>
             <li className="portfolio__project">
-              <a className="portfolio__link" href="#" target="_blank">
+              <a className="portfolio__link" href="https://leonid-dolgodvorov.github.io/mesto/index.html" target="_blank">
                 Адаптивный сайт <p className="portfolio__icon">&#8599;</p>
               </a>
             </li>
             <li className="portfolio__project">
-              <a className="portfolio__link" href="#" target="_blank">
+              <a className="portfolio__link" href="https://leonid-dolgodvorov.github.io/mesto/index.html" target="_blank">
                 Одностраничное приложение <p className="portfolio__icon">&#8599;</p>
               </a>
             </li>

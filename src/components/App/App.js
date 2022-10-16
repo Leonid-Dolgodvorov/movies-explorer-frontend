@@ -18,13 +18,13 @@ function App() {
           <Main/>
         </Route>
          <Route path="/movies">
-          <Movies/>
+          <Movies isLoggedIn="true"/>
         </Route>
         <Route path="/saved-movies">
-          <SavedMovies/>
+          <SavedMovies isLoggedIn="true"/>
         </Route>
         <Route path="/profile">
-          <Profile/>
+          <Profile isLoggedIn="true"/>
         </Route>
         <Route path="/signin">
           <Login/>

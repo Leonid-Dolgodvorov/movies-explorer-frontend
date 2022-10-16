@@ -3,10 +3,9 @@ import { Link } from "react-router-dom";
 import "./Header.css"
 import Burger from "../Burger/Burger"
 
-const isLoggedIn = true;
 const isBurgerOpened = false;
 
-function Header() {
+function Header({isLoggedIn}) {
   return (
     <>
       {

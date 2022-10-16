@@ -11,6 +11,7 @@
 }
 
 .burger__container {
+  position: fixed;
   width: 520px;
   height: 100vh;
   background-color: white;
@@ -26,7 +27,7 @@
   align-self: flex-end;
   border: none;
   background-color: white;
-  background-image: url(../../images/close-btn.png);
+  background-image: url(../../images/close-btn.svg);
   background-position: center;
 }
 

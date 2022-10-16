@@ -57,7 +57,11 @@
 }
 
 .movies__card-save-btn {
-  background-image: url(../../images/save-btn.png);
+  background-image: url(../../images/save-btn.svg);
+}
+
+.movies__delete-btn {
+  background-image: url(../../images/delete-btn.svg);
 }
 
 .movies__button:hover {

@@ -43,7 +43,7 @@
   height: 34px;
   border: none;
   padding: 0;
-  background-image: url("../../images/search-icon.png");
+  background-image: url("../../images/search-icon.svg");
   background-size: cover;
   background-color: transparent;
 }
@@ -81,9 +81,13 @@
   padding: 0;
   width: 45px;
   height: 23px;
-  background-image: url("../../images/smalltumb.png");
+  background-image: url("../../images/smalltumb.svg");
   background-size: cover;
   background-color: transparent;
+}
+
+.searchform__shorts-btn-inactive {
+  background-image: url("../../images/smalltumboff.svg");
 }
 
 .searchform__shorts-btn:hover {
