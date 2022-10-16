@@ -16,24 +16,6 @@
   justify-content: center;
 }
 
-.movies__more {
-  margin: 0 auto;
-  text-align: center;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 15px;
-  width: 320px;
-  height: 36px;
-  padding-top: 9px;
-  box-sizing: border-box;
-  border: 1px solid #E8E8E8;
-}
-
-.movies__more:hover {
-  opacity: .8;
-  cursor: pointer;
-}
-
 @media (max-width: 900px) {
   .movies__card-list {
     margin: 0 30px;

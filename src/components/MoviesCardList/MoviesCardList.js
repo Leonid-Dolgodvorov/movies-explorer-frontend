@@ -13,7 +13,6 @@ function MoviesCardList() {
         <MoviesCard/>
         <MoviesCard/>
       </ul>
-      <p className="movies__more">Ещё</p>
     </section>
   );
 };

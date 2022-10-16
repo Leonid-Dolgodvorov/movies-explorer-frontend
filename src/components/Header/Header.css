@@ -29,7 +29,6 @@
   display: flex;
   margin-right: 70px;
   align-items: center;
-  justify-content: center;
   box-sizing: border-box;
 }
 
@@ -45,6 +44,11 @@
   color: #000;
 }
 
+.button_header-closer {
+  margin: 0;
+  padding: 8px 10px;
+}
+
 .button__header:hover {
   cursor: pointer;
   opacity: .8;
@@ -58,9 +62,10 @@
   background: #2BE080;  
 }
 
-.button__header_grey {
+.button__header_account {
   background: #F9F9F9;  
   border-radius: 20px;
+  margin-left: 20px;
 }
 
 .header__burger {

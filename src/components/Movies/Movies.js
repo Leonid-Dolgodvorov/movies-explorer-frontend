@@ -12,7 +12,8 @@ function Movies() {
       <div className="movies">
         <SearchForm/>
         <MoviesCardList/>
-      </div>
+        <p className="movies__more">Ещё</p>
+      </div>      
       <Footer/>
       </>
   );

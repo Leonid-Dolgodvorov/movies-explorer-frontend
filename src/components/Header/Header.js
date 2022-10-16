@@ -22,9 +22,9 @@ function Header() {
           <header className="header">
             <Link className="header-logo" to="/" />            
             <nav className="header-nav header-nav_signed-in">
-              <Link className="button__header" to="/movies">Фильмы</Link>
-              <Link className="button__header" to="/saved-movies">Сохраненные фильмы</Link>
-              <Link className="button__header button__header_grey" to="/profile">Аккаунт</Link>
+              <Link className="button__header button_header-closer" to="/movies">Фильмы</Link>
+              <Link className="button__header button_header-closer" to="/saved-movies">Сохраненные фильмы</Link>
+              <Link className="button__header button__header_account" to="/profile">Аккаунт</Link>
             </nav>
             <button className="header__burger"/>
           </header>          
