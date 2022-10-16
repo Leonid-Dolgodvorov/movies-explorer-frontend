@@ -4,16 +4,19 @@ import Header from "../Header/Header"
 
 function Profile() {
   return (
-    <section className="profile">
+    <>
       <Header />
+      <section className="profile">
         <h1 className="profile__title">Привет, Виталий!</h1>
         <form className="profile__form" noValidate>
           <fieldset className="profile__inputs">
-            <label className="profile__label">Имя
+            <label className="profile__label">
+              Имя
               <input className="profile__input" name="profile__name" id="profile__name" type="text" value="Виталий"/>
             </label>
             <span className="profile__input-error"></span>
-            <label className="profile__label">E-mail
+            <label className="profile__label">
+              E-mail
               <input className="profile__input" name="profile__email" id="profile__email" type="email" value="pochta@yandex.ru"/>
             </label>
             <span className="profile__input-error"></span>
@@ -21,7 +24,8 @@ function Profile() {
           </fieldset>
         </form>
         <button className="profile__button profile__button-signout">Выйти из формы</button>
-    </section>
+      </section>
+    </>
   );
 };
 
