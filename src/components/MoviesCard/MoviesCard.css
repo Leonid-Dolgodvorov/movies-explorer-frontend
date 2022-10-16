@@ -65,3 +65,29 @@
   opacity: .8;
 }
 
+@media (max-width: 900px) {
+  .movies__pic {
+    height: 190px;
+  }
+}
+
+@media (max-width: 500px) {
+  .movies__text {
+    margin: 14px;
+  }
+  .movies__title {
+    font-size: 12px;
+    line-height: 18px;
+  }  
+  .movies__duration {
+    font-size: 10px;
+    line-height: 18px;
+  }
+  .movies__pic {
+    height: 168px;
+    margin-bottom: 14px;
+  }
+  .movies__button {
+    margin-bottom: 14px;
+  }
+}

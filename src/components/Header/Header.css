@@ -44,11 +44,6 @@
   color: #000;
 }
 
-.button_header-closer {
-  margin: 0;
-  padding: 8px 10px;
-}
-
 .button__header:hover {
   cursor: pointer;
   opacity: .8;
@@ -62,10 +57,25 @@
   background: #2BE080;  
 }
 
+.button_header-loggedin {
+  margin: 0;
+  padding: 8px 10px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.button_header-loggedin-active {
+  font-weight: 500;
+}
+
 .button__header_account {
   background: #F9F9F9;  
   border-radius: 20px;
-  margin-left: 20px;
+  margin-left: 45px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
 }
 
 .header__burger {

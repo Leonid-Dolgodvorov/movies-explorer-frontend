@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./Header.css"
 import Burger from "../Burger/Burger"
 
-const isLoggedIn = false;
+const isLoggedIn = true;
 const isBurgerOpened = false;
 
 function Header() {
@@ -22,8 +22,8 @@ function Header() {
           <header className="header">
             <Link className="header-logo" to="/" />            
             <nav className="header-nav header-nav_signed-in">
-              <Link className="button__header button_header-closer" to="/movies">Фильмы</Link>
-              <Link className="button__header button_header-closer" to="/saved-movies">Сохраненные фильмы</Link>
+              <Link className="button__header button_header-loggedin button_header-loggedin-active" to="/movies">Фильмы</Link>
+              <Link className="button__header button_header-loggedin" to="/saved-movies">Сохраненные фильмы</Link>
               <Link className="button__header button__header_account" to="/profile">Аккаунт</Link>
             </nav>
             <button className="header__burger"/>

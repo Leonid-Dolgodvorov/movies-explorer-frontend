@@ -17,6 +17,7 @@
   padding-top: 9px;
   box-sizing: border-box;
   border: 1px solid #E8E8E8;
+  border-radius: 3px;
 }
 
 .movies__more:hover {
@@ -27,5 +28,18 @@
 @media screen and (max-width: 1250px) {
   .movies {
     margin: 60px auto;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .movies {
+    margin: 55px auto;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .movies__more {
+    width: 240px;
+    height: 36px;
   }
 }
