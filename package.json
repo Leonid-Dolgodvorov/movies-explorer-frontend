@@ -16,7 +16,8 @@
     "start": "set PORT=3010 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "npm run build && scp -r ./build/* dolgodvorovl@84.201.175.116:/home/dolgodvorovl/movies-explorer-front"
   },
   "eslintConfig": {
     "extends": [
