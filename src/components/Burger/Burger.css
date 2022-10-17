@@ -1,0 +1,104 @@
+.burger {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: flex-end;
+  z-index: 2;
+}
+
+.burger__container {
+  position: fixed;
+  width: 520px;
+  height: 100vh;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.burger__button {
+  margin: 27px 27px 0 0;
+  padding: 0;
+  width: 22px;
+  height: 22px;
+  align-self: flex-end;
+  border: none;
+  background-color: transparent;
+  background-image: url(../../images/close-btn.svg);
+  background-position: center;
+}
+
+.burger__button:hover {
+  cursor: pointer;
+}
+
+.burger__wrapper {
+  margin: 90px auto 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 77.5%;  
+}
+
+.burger__links {
+  display: flex;
+  flex-direction: column;
+}
+
+.burger__link {
+  margin: 0 auto 2px;
+  text-decoration: none;
+  text-align: center;
+  color: #000;
+  padding: 20px 0 5px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.burger__link:hover {
+  cursor: pointer;
+}
+
+.burger__link_active {
+  border-bottom: solid 2px black;
+}
+
+.burger__account-button {
+  width: 100px;
+  margin: 0 auto;
+  text-align: center;
+  background-color: #F9F9F9;
+  color: #000;
+  text-decoration: none;
+  border-radius: 20px;
+  padding: 8px 0;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+@media screen and (max-width: 767px) {
+  .burger__container {
+    width: 100vw;
+  }
+  .burger__button {
+    margin: 18px 18px 0 0;
+  }
+  .burger__wrapper {
+    margin-top: 88px;
+    height: 80%;  
+  }
+  .burger__link {
+    margin: 0 auto;
+    padding: 17px 0 6px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+  }
+}

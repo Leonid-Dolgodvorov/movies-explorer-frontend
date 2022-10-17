@@ -1,0 +1,132 @@
+.header {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 0;
+  box-sizing: border-box;
+}
+
+.header-main {
+  background-color: #5C5C5C;
+}
+
+.header-logo {
+  width: 38px;
+  height: 38px;
+  margin-left: 70px;
+  background-image: url("../../images/logo.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.header-logo:hover {
+  cursor: pointer;
+  opacity: .8;
+}
+
+.header-nav {
+  display: flex;
+  margin-right: 70px;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.button__header {
+  margin-left: 10px;
+  padding: 8px 20px;
+  border-radius: 3px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #000;
+}
+
+.button__header:hover {
+  cursor: pointer;
+  opacity: .8;
+}
+
+.button__header_white-text {
+  color: #fff;
+}
+
+.button__header_green {
+  background: #2BE080;  
+}
+
+.button_header-loggedin {
+  margin: 0;
+  padding: 8px 10px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.button_header-loggedin-active {
+  font-weight: 500;
+}
+
+.button__header_account {
+  background: #F9F9F9;  
+  border-radius: 20px;
+  margin-left: 45px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.header__burger {
+  margin-right: 30px;
+  width: 44px;
+  height: 44px;
+  display: none;
+  background-image: url("../../images/burger-icon.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border: none;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 900px) {
+  .header {
+    padding: 15px 0 3px;
+  }
+  .header-logo {
+    margin-left: 30px;
+  }
+  .header-nav {
+    margin-right: 30px;
+  }
+  .header-nav_signed-in {
+    display: none;
+  }
+  .header__burger {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .header {
+    padding: 15px 0 3px;
+  }
+  .header-logo {
+    margin-left: 14px;
+  }
+  .header-nav {
+    margin-right: 14px;
+  }
+  .button__header {    
+    font-size: 10px;
+    margin-left: 10px;
+    padding: 4px 10px;
+  }
+  .header__burger {
+    margin-right: 14px;
+  }
+}

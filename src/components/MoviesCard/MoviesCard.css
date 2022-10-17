@@ -1,0 +1,97 @@
+.movies__card {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+  list-style: none;
+  background: #FDFDFD;
+  box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.08);
+  border-radius: 6px;
+}
+
+.movies__text {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 18px;
+}
+
+.movies__title {
+  margin: 0;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 18px;
+}
+
+.movies__duration {
+  margin: 0;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+  color: #A0A0A0;
+  border-radius: 3px;
+}
+
+.movies__pic {
+  width: 100%;
+  height: 201px;
+  object-fit: cover;
+  margin-bottom: 18px;
+}
+
+.movies__button {
+  margin: 0 auto 18px;
+  padding: 0;
+  width: 100px;
+  height: 29px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: none;
+}
+
+.movies__saved-btn {
+  background-image: url(../../images/saved-btn.svg);
+}
+
+.movies__card-save-btn {
+  background-image: url(../../images/save-btn.svg);
+}
+
+.movies__delete-btn {
+  background-image: url(../../images/delete-btn.svg);
+}
+
+.movies__button:hover {
+  cursor: pointer;
+  opacity: .8;
+}
+
+@media (max-width: 900px) {
+  .movies__pic {
+    height: 190px;
+  }
+}
+
+@media (max-width: 500px) {
+  .movies__text {
+    margin: 14px;
+  }
+  .movies__title {
+    font-size: 12px;
+    line-height: 18px;
+  }  
+  .movies__duration {
+    font-size: 10px;
+    line-height: 18px;
+  }
+  .movies__pic {
+    height: 168px;
+    margin-bottom: 14px;
+  }
+  .movies__button {
+    margin-bottom: 14px;
+  }
+}
