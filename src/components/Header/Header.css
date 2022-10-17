@@ -95,15 +95,12 @@
   .header-logo {
     margin-left: 30px;
   }
-
   .header-nav {
     margin-right: 30px;
   }
-
   .header-nav_signed-in {
     display: none;
   }
-
   .header__burger {
     display: block;
   }
