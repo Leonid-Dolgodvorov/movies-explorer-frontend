@@ -23,7 +23,7 @@ function Profile({isLoggedIn}) {
             <button className="profile__button" type="submit">Редактировать</button>
           </fieldset>
         </form>
-        <button className="profile__button profile__button-signout">Выйти из формы</button>
+        <button className="profile__button profile__button-signout">Выйти из аккаунта</button>
       </section>
     </>
   );

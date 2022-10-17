@@ -6,7 +6,7 @@
 }
 
 .profile__title {
-  margin: 74px auto 120px;
+  margin: 74px auto 108px;
   font-weight: 500;
   font-size: 24px;
   line-height: 29px;
@@ -39,7 +39,7 @@
 }
 
 .profile__label:last-of-type {
-  margin-bottom: 200px;
+  margin-bottom: 205px;
   border-bottom: none;
 }
 
@@ -58,7 +58,7 @@
 }
 
 .profile__button {
-  margin: 0 auto 16px;
+  margin: 0 auto 14px;
   border: none;
   font-size: 13px;
   line-height: 16px;
@@ -71,9 +71,27 @@
   color: #EE3465;
 }
 
+@media screen and (max-width: 900px) {
+  .profile__title {
+    margin: 248px auto 80px;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+  }
+  .profile__label:last-of-type {
+    margin-bottom: 195px;
+  }
+}
+
 @media screen and (max-width: 500px) {
+  .profile__title {
+    margin: 81px auto 67px;
+  }
   .profile__form {
     width: 260px;
+  }
+  .profile__label:last-of-type {
+    margin-bottom: 364px;
   }
   .profile__button {
     font-size: 12px;

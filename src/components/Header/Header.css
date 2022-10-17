@@ -3,6 +3,7 @@
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 18px 0;
   box-sizing: border-box;
 }
@@ -86,12 +87,16 @@
   background-image: url("../../images/burger-icon.svg");
   background-repeat: no-repeat;
   background-position: center;
+  background-size: cover;
   border: none;
   background-color: #fff;
   cursor: pointer;
 }
 
-@media screen and (max-width: 900px) {  
+@media screen and (max-width: 900px) {
+  .header {
+    padding: 15px 0 3px;
+  }
   .header-logo {
     margin-left: 30px;
   }
@@ -107,6 +112,9 @@
 }
 
 @media screen and (max-width: 500px) {
+  .header {
+    padding: 15px 0 3px;
+  }
   .header-logo {
     margin-left: 14px;
   }
