@@ -8,10 +8,10 @@ import Techs from "../Techs/Techs";
 import AboutMe from "../AboutMe/AboutMe";
 import Footer from "../Footer/Footer";
 
-const Main = () => {
+const Main = ({loggedIn}) => {
   return (
     <>
-      <Header/> 
+      <Header loggedIn={loggedIn}/> 
       <div className="main">             
         <Promo/>
         <AboutProject/>

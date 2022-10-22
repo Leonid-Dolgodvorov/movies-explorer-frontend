@@ -5,10 +5,10 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer"
 
-function SavedMovies({isLoggedIn}) {
+function SavedMovies({loggedIn}) {
   return (
     <>
-      <Header isLoggedIn={isLoggedIn}/>
+      <Header loggedIn={loggedIn}/>
       <div className="saved-movies">
         <SearchForm/>
         <MoviesCardList/>

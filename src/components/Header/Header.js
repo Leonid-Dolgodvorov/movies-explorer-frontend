@@ -5,11 +5,11 @@ import Burger from "../Burger/Burger"
 
 const isBurgerOpened = false;
 
-function Header({isLoggedIn}) {
+function Header({loggedIn}) {
   return (
     <>
       {
-        !isLoggedIn ?
+        !loggedIn ?
           <header className="header header-main">
             <Link className="header-logo" to="/" />
             <nav className="header-nav">
