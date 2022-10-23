@@ -8,15 +8,10 @@ import Footer from "../Footer/Footer"
 function Movies({loggedIn, isBurgerOpened, onBurger, allMovies, savedMovies}) {
 
   const [isLoading, setIsLoading] = React.useState(false);
-  const [newArrMovies, setNewArrMovies] = React.useState([]);
   const [sliceQuantity, setSliceQuantity] = React.useState(0);
   const [isShortBtnActive, setIsShortBtnActive] = React.useState(false);
   const [inputValue, setInputValue] = React.useState('');
-  let slicedMoviesArr = newArrMovies.slice(0, sliceQuantity);
-
-  React.useEffect(() => {
-    setNewArrMovies(allMovies)
-  }, [allMovies]);
+  let slicedMoviesArr = allMovies.slice(0, sliceQuantity);
 
   React.useEffect(() => {
     if (window.innerWidth >= 1280) {
