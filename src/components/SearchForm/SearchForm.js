@@ -1,9 +1,14 @@
 import React from "react";
 import "./SearchForm.css";
 
-const isSearchBtnActive = true;
-
 function SearchForm() {
+
+  const [isShortBtnActive, setIsShortBtnActive] = React.useState(false)
+
+  const handleShortBtn = () => {
+    setIsShortBtnActive(!isShortBtnActive);
+  }
+
   return (
     <section className="searchform">
       <div className="searchform__wrapper">
@@ -16,9 +21,15 @@ function SearchForm() {
           <label className="searchform__text">Короткометражки</label>
           <>
             { 
-            isSearchBtnActive ? 
-              <button className="searchform__shorts-btn" type="button"/>
-            : <button className="searchform__shorts-btn searchform__shorts-btn-inactive" type="button"/>
+            isShortBtnActive ? 
+              <button 
+                className="searchform__shorts-btn"
+                type="button"
+                onClick={handleShortBtn}/>
+            : <button
+              className="searchform__shorts-btn searchform__shorts-btn-inactive"
+              type="button"
+              onClick={handleShortBtn}/>
             }
           </>              
         </div>
@@ -28,4 +39,3 @@ function SearchForm() {
 };
 
 export default SearchForm;
-

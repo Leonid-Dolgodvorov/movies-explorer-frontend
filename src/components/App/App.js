@@ -19,29 +19,40 @@ function App() {
   const [loggedIn, setLoggedIn] = React.useState(localStorage.jwt || false);
   const [currentUser, setCurrentUser] = React.useState({});
   const [allMovies, setAllMovies] = React.useState([]);
-  const [savedMovies, setsavedMovies] = React.useState([]);
+  const [savedMovies, setSavedMovies] = React.useState([]);
   const [isBurgerOpened, setIsBurgerOpened] = React.useState(false)
   const history = useHistory();
 
   React.useEffect(() => {
     const jwt = localStorage.getItem("jwt");
-    if (jwt) {
-      Promise.all([auth.getData(jwt), moviesApi.getMovies(), mainApi.getUserMovies()])
-        .then(([userInfo, allMoviesList, savedMoviesList]) => {
+    if (jwt) { 
+      auth.getData(jwt) 
+        .then((userInfo) => {
           setLoggedIn(true);
-          setCurrentUser(userInfo);
-          setAllMovies(allMoviesList);
-          setsavedMovies(savedMoviesList.data);
-          history.push("/movies");
+          setCurrentUser(JSON.stringify(userInfo));
         })
         .catch((err) => {
           console.log(err)
         })
     } else {
       handleSignOut()
-    }            
+    }
   }, []);
-  
+
+  React.useEffect(() => {
+    if (loggedIn) { 
+      Promise.all([moviesApi.getMovies(), mainApi.getUserMovies()])
+        .then(([allMoviesList, savedMoviesList]) => {
+          setAllMovies(allMoviesList);
+          setSavedMovies(savedMoviesList.data);          
+          history.push("/movies")
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+  }, [loggedIn]);
+
   const handleRegistration = (name, email, password) => {
     auth
       .register(name, email, password)
@@ -52,7 +63,6 @@ function App() {
   const handleAuthorization = (email, password) => {
     auth
       .authorize(email, password)
-      .then(() => mainApi.getUserMovies())
       .then((res) => {
           setLoggedIn(true);
           history.push("/movies");
@@ -69,15 +79,16 @@ function App() {
         .catch((err) => console.log(err))
   };
 
-  const handleBurger = () => {
-    setIsBurgerOpened(!isBurgerOpened);
-  };
-
   const handleSignOut = () => {
     setLoggedIn(false);
+    setIsBurgerOpened(false);
     localStorage.removeItem("jwt");
-    history.push("/signin");
+    history.push("/");
   };
+
+  const handleBurger = () => {
+    setIsBurgerOpened(!isBurgerOpened);
+  };  
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -94,14 +105,18 @@ function App() {
             loggedIn={loggedIn}
             isBurgerOpened={isBurgerOpened}
             onBurger={handleBurger}
+            allMovies={allMovies}
+            savedMovies={savedMovies}
             component={Movies}/>
-          <ProtectedRoute 
+          <ProtectedRoute
             path="/saved-movies"
             loggedIn={loggedIn}
             isBurgerOpened={isBurgerOpened}
             onBurger={handleBurger}
+            allMovies={allMovies}
+            savedMovies={savedMovies}
             component={SavedMovies}/>
-          <ProtectedRoute 
+          <ProtectedRoute
             path="/profile"
             loggedIn={loggedIn}
             onUpdateUserInfo={handleUpdateUserInfo}
