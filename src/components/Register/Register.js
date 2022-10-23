@@ -31,7 +31,7 @@ function Register({onRegister}) {
         <Link to="/" className="register__logo"/>
         <h1 className='register__title'>Добро пожаловать!</h1>
         <label className="register__label">Имя</label>
-        <input 
+        <input
           className="register__input"
           name="name"
           type="text"
@@ -42,7 +42,7 @@ function Register({onRegister}) {
         <span className="register__input-error"></span>
 
         <label className="register__label">E-mail</label>
-        <input 
+        <input
           className="register__input"
           name="email"
           type="email"
@@ -53,7 +53,7 @@ function Register({onRegister}) {
         <span className="register__input-error"></span>
 
         <label className="register__label">Пароль</label>
-        <input 
+        <input
           className="register__input"
           name="password"
           type="password"

@@ -25,13 +25,13 @@ class MainApi {
     .then(res => this.returnResJson(res))
   }
 
-  editUserInfo({name, email}) {
+  editUserInfo(name, email) {
     return fetch(`${this._url}users/me`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        name,
-        email
+        name: name,
+        email: email,
       })
     })
     .then(res => this.returnResJson(res))

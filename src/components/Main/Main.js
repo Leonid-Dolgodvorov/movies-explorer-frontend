@@ -8,10 +8,13 @@ import Techs from "../Techs/Techs";
 import AboutMe from "../AboutMe/AboutMe";
 import Footer from "../Footer/Footer";
 
-const Main = ({loggedIn}) => {
+const Main = ({loggedIn, isBurgerOpened, onBurger}) => {
   return (
     <>
-      <Header loggedIn={loggedIn}/> 
+      <Header 
+        loggedIn={loggedIn}
+        isBurgerOpened={isBurgerOpened}
+        onBurger={onBurger}/> 
       <div className="main">             
         <Promo/>
         <AboutProject/>

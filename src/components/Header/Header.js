@@ -3,9 +3,7 @@ import { Link } from "react-router-dom";
 import "./Header.css"
 import Burger from "../Burger/Burger"
 
-const isBurgerOpened = false;
-
-function Header({loggedIn}) {
+function Header({loggedIn, isBurgerOpened, onBurger}) {
   return (
     <>
       {
@@ -25,7 +23,10 @@ function Header({loggedIn}) {
               <Link className="button__header button_header-loggedin" to="/saved-movies">Сохраненные фильмы</Link>
               <Link className="button__header button__header_account" to="/profile">Аккаунт</Link>
             </nav>
-            <button className="header__burger"/>
+            <button 
+              type="button"
+              className="header__burger"
+              onClick={onBurger}/>
           </header>          
       }
       { 
@@ -33,7 +34,7 @@ function Header({loggedIn}) {
               <>
               </>
             :
-              <Burger />
+              <Burger onClose={onBurger}/>
           }
     </>
   );

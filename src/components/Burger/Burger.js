@@ -2,11 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Burger.css"
 
-function Burger() {
+function Burger({onClose}) {
   return (
     <section className="burger">
       <div className="burger__container">
-        <button className="burger__button" />
+        <button
+          type="button"
+          className="burger__button"
+          onClick={onClose}/>
         <div className="burger__wrapper">
           <div className="burger__links">
             <Link exact to="/" className="burger__link">Главная</Link>

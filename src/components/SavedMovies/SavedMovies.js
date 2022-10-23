@@ -5,10 +5,13 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer"
 
-function SavedMovies({loggedIn}) {
+function SavedMovies({loggedIn, isBurgerOpened, onBurger}) {
   return (
     <>
-      <Header loggedIn={loggedIn}/>
+      <Header
+        loggedIn={loggedIn}
+        isBurgerOpened={isBurgerOpened}
+        onBurger={onBurger}/>
       <div className="saved-movies">
         <SearchForm/>
         <MoviesCardList/>

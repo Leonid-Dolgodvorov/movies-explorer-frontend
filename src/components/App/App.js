@@ -16,10 +16,11 @@ import moviesApi from "../../utils/MoviesApi";
 
 function App() {
 
-  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [loggedIn, setLoggedIn] = React.useState(localStorage.jwt || false);
   const [currentUser, setCurrentUser] = React.useState({});
   const [allMovies, setAllMovies] = React.useState([]);
   const [savedMovies, setsavedMovies] = React.useState([]);
+  const [isBurgerOpened, setIsBurgerOpened] = React.useState(false)
   const history = useHistory();
 
   React.useEffect(() => {
@@ -31,7 +32,7 @@ function App() {
           setCurrentUser(userInfo);
           setAllMovies(allMoviesList);
           setsavedMovies(savedMoviesList.data);
-          history.push("/");
+          history.push("/movies");
         })
         .catch((err) => {
           console.log(err)
@@ -54,15 +55,28 @@ function App() {
       .then(() => mainApi.getUserMovies())
       .then((res) => {
           setLoggedIn(true);
-          history.push("/");
+          history.push("/movies");
       })
       .catch((err) => console.log(err))
+  };
+
+  const handleUpdateUserInfo = (name, email) => {
+    mainApi
+        .editUserInfo(name, email)
+        .then((user) => {
+            setCurrentUser(user);
+        })
+        .catch((err) => console.log(err))
+  };
+
+  const handleBurger = () => {
+    setIsBurgerOpened(!isBurgerOpened);
   };
 
   const handleSignOut = () => {
     setLoggedIn(false);
     localStorage.removeItem("jwt");
-    history.push("/signup");
+    history.push("/signin");
   };
 
   return (
@@ -70,19 +84,27 @@ function App() {
       <div className="App">
         <Switch>
           <Route exact path="/">
-            <Main loggedIn={loggedIn}/>
+            <Main 
+              loggedIn={loggedIn}
+              isBurgerOpened={isBurgerOpened}
+              onBurger={handleBurger}/>
           </Route>
           <ProtectedRoute
             path="/movies"
             loggedIn={loggedIn}
+            isBurgerOpened={isBurgerOpened}
+            onBurger={handleBurger}
             component={Movies}/>
           <ProtectedRoute 
             path="/saved-movies"
             loggedIn={loggedIn}
+            isBurgerOpened={isBurgerOpened}
+            onBurger={handleBurger}
             component={SavedMovies}/>
           <ProtectedRoute 
             path="/profile"
             loggedIn={loggedIn}
+            onUpdateUserInfo={handleUpdateUserInfo}
             onSignOut={handleSignOut}
             component={Profile}/>
           <Route path="/signin">
