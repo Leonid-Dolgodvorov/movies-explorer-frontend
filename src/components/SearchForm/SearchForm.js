@@ -1,20 +1,29 @@
 import React from "react";
 import "./SearchForm.css";
 
-function SearchForm() {
+function SearchForm({isShortBtnActive, handleShortBtn, handleFind, setInputValue}) {
 
-  const [isShortBtnActive, setIsShortBtnActive] = React.useState(false)
-
-  const handleShortBtn = () => {
-    setIsShortBtnActive(!isShortBtnActive);
-  }
+  const handleSearchChange = (e) => {
+    setInputValue(e.target.value);
+    console.log(e.target.value)
+  };
 
   return (
     <section className="searchform">
       <div className="searchform__wrapper">
-        <form className="searchform__form">
-          <input className="searchform__input" type="text" placeholder="Фильм" required/>
-          <button className="searchform__search-btn" type="submit" ></button>
+        <form 
+          className="searchform__form"
+          onSubmit={handleFind}>
+
+          <input
+            className="searchform__input"
+            type="text"
+            placeholder="Фильм"
+            required
+            onChange={handleSearchChange}/>
+          <button
+            className="searchform__search-btn"
+            type="submit"/>
           <span className="searchform__error"></span>
         </form>
         <div className="searchform__short-films">
