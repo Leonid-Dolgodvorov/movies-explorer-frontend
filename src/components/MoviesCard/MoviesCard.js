@@ -2,6 +2,7 @@ import React from "react";
 import "./MoviesCard.css";
 
 function MoviesCard({movie, isSaved}) {
+
   return (
     <li className="movies__card">
       <div className="movies__text">

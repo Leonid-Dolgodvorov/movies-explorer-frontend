@@ -45,7 +45,7 @@ function App() {
       Promise.all([moviesApi.getMovies(), mainApi.getUserMovies()])
         .then(([allMoviesList, savedMoviesList]) => {
           setAllMovies(allMoviesList);
-          setSavedMovies(JSON.stringify(savedMoviesList.data));
+          setSavedMovies(savedMoviesList.data);
         })
         .catch((err) => {
           console.log(err)
@@ -55,7 +55,7 @@ function App() {
   
   React.useEffect(() => {
     localStorage.setItem("localMovies", JSON.stringify(allMovies));
-    localStorage.setItem("localSavedMovies", savedMovies);
+    localStorage.setItem("localSavedMovies", JSON.stringify(savedMovies));
     localStorage.setItem("userInfo", currentUser)
   }, [allMovies, savedMovies, currentUser]);
 

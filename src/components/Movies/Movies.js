@@ -11,6 +11,7 @@ function Movies({loggedIn, isBurgerOpened, onBurger, isLoading, setIsLoading}) {
   const [isShortBtnActive, setIsShortBtnActive] = React.useState(false);
   const [inputValue, setInputValue] = React.useState('');
   const [slicedMoviesArr, setSlicedMoviesArr] = React.useState([]);
+  
   const localMovies = localStorage.getItem("localMovies");
   const localSavedMovies = localStorage.getItem("localSavedMovies");
 
