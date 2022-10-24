@@ -17,6 +17,7 @@ import moviesApi from "../../utils/MoviesApi";
 function App() {
 
   const [loggedIn, setLoggedIn] = React.useState(localStorage.jwt || false);
+  const [isLoading, setIsLoading] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
   const [allMovies, setAllMovies] = React.useState([]);
   const [savedMovies, setSavedMovies] = React.useState([]);
@@ -40,11 +41,10 @@ function App() {
   }, []);
 
   React.useEffect(() => {
-    if (loggedIn) { 
+    if (loggedIn) {
       Promise.all([moviesApi.getMovies(), mainApi.getUserMovies()])
         .then(([allMoviesList, savedMoviesList]) => {
           setAllMovies(allMoviesList);
-          Array.isArray(allMoviesList);
           setSavedMovies(JSON.stringify(savedMoviesList.data));
         })
         .catch((err) => {
@@ -52,7 +52,7 @@ function App() {
         })
     }
   }, [loggedIn]);
-
+  
   React.useEffect(() => {
     localStorage.setItem("localMovies", JSON.stringify(allMovies));
     localStorage.setItem("localSavedMovies", savedMovies);
@@ -116,8 +116,8 @@ function App() {
             loggedIn={loggedIn}
             isBurgerOpened={isBurgerOpened}
             onBurger={handleBurger}
-            allMovies={allMovies}
-            savedMovies={savedMovies}
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
             component={Movies}/>
           <ProtectedRoute
             path="/saved-movies"
@@ -126,6 +126,8 @@ function App() {
             onBurger={handleBurger}
             allMovies={allMovies}
             savedMovies={savedMovies}
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
             component={SavedMovies}/>
           <ProtectedRoute
             path="/profile"

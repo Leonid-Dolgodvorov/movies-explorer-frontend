@@ -5,19 +5,20 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer"
 
-function Movies({loggedIn, isBurgerOpened, onBurger, allMovies, savedMovies}) {
+function Movies({loggedIn, isBurgerOpened, onBurger, isLoading, setIsLoading}) {
 
-  const [isLoading, setIsLoading] = React.useState(false);
   const [sliceQuantity, setSliceQuantity] = React.useState(0);
   const [isShortBtnActive, setIsShortBtnActive] = React.useState(false);
   const [inputValue, setInputValue] = React.useState('');
   const [slicedMoviesArr, setSlicedMoviesArr] = React.useState([]);
+  const localMovies = localStorage.getItem("localMovies");
+  const localSavedMovies = localStorage.getItem("localSavedMovies");
 
   React.useEffect(() => {
-    if (localStorage.getItem("localMovies")) {
-      setSlicedMoviesArr((JSON.parse(localStorage.getItem("localMovies")).slice(0, sliceQuantity)));
+    if (localMovies) {
+      setSlicedMoviesArr((JSON.parse(localMovies).slice(0, sliceQuantity)));
     }
-  }, [localStorage.getItem("localMovies"), sliceQuantity]);
+  }, [localMovies, sliceQuantity]);
 
   React.useEffect(() => {
     if (window.innerWidth >= 1280) {
@@ -41,7 +42,7 @@ function Movies({loggedIn, isBurgerOpened, onBurger, allMovies, savedMovies}) {
     setIsShortBtnActive(!isShortBtnActive);
   };
 
-  const handleFind = (e) => {
+  const handleFind = (e) => {   
     e.preventDefault();
     const findMovies = (movie, keyword) => movie.nameRU.toLowerCase().includes(keyword.toLowerCase()) || movie.nameEN.toLowerCase().includes(keyword.toLowerCase());
     setSlicedMoviesArr(slicedMoviesArr.filter(movie => findMovies(movie, inputValue)));
@@ -67,11 +68,11 @@ function Movies({loggedIn, isBurgerOpened, onBurger, allMovies, savedMovies}) {
           />
         <MoviesCardList
           slicedMoviesArr={isShortBtnActive ? 
-            findShortMovies(allMovies) 
+            findShortMovies(JSON.parse(localMovies)) 
             :
             slicedMoviesArr
           }
-          savedMovies={savedMovies}
+          localSavedMovies={JSON.parse(localSavedMovies)}
           isLoading={isLoading}/>
           <button
             type="button"

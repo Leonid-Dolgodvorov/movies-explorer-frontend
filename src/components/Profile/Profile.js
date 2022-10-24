@@ -10,7 +10,7 @@ function Profile({loggedIn, onUpdateUserInfo, onSignOut}) {
 
   React.useEffect(() => {
     if (localStorage.getItem("userInfo")) { 
-      setUser(localStorage.getItem("userInfo"))
+      setUser(JSON.parse(localStorage.getItem("userInfo")))
     }
   }, []);
 

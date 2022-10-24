@@ -23,7 +23,11 @@ function Header({loggedIn, isBurgerOpened, onBurger}) {
             </nav>
           </header>
         : 
-          <header className="header">
+          <header className={location.pathname === "/" ?
+            "header header-main"
+            :
+            "header"}
+            >
             <Link className="header-logo" to="/" />            
             <nav className="header-nav header-nav_signed-in">
               <Link className={location.pathname === "/movies" ?

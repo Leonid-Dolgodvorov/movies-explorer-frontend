@@ -1,7 +1,7 @@
 import React from "react";
 import "./MoviesCard.css";
 
-function MoviesCard({movie, isSavedFilm}) {
+function MoviesCard({movie, isSaved}) {
   return (
     <li className="movies__card">
       <div className="movies__text">
@@ -17,7 +17,7 @@ function MoviesCard({movie, isSavedFilm}) {
           alt={movie.nameRU}/>
       </a>
       <>
-        {isSavedFilm ?
+        {isSaved ?
           <button type="button" className="movies__button movies__saved-btn"></button>
           :
           <button type="button" className="movies__button movies__save-btn"></button>
