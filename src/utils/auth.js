@@ -1,4 +1,5 @@
-const BASE_URL = "https://api.dolgodvorovl.nomoredomains.icu";
+const BASE_URL = "http://localhost:3000";
+/* const BASE_URL = "https://api.dolgodvorovl.nomoredomains.icu"; */
 
 function returnResJson(res) {
   if (res.ok) {

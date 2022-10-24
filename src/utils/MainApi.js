@@ -37,7 +37,7 @@ class MainApi {
     .then(res => this.returnResJson(res))
   }
 
-  addCard({nameRU, nameEN, director, country, year, duration, description, trailerLink, image}) {
+  addCard({nameRU, nameEN, director, country, year, duration, description, trailerLink, url, movieId}) {
     return fetch(`${this._url}movies`, {
       method: 'POST',
       headers: this._headers,
@@ -50,7 +50,9 @@ class MainApi {
         duration,
         description,
         trailerLink,
-        image: `https://api.nomoreparties.co${image.url}`,
+        movieId,
+        image: `https://api.nomoreparties.co${url}`,
+        thumbnail: `https://api.nomoreparties.co${url}`,
       })
     })
     .then(res => this.returnResJson(res))
@@ -68,7 +70,8 @@ class MainApi {
 const jwt = localStorage.getItem("jwt");
 
 const mainApi = new MainApi({
-  url: "https://api.dolgodvorovl.nomoredomains.icu/",
+//  url: "https://api.dolgodvorovl.nomoredomains.icu/",
+  url: "http://localhost:3000/",
   headers: {
     "Content-Type": "application/json",
     'Authorization': `Bearer ${jwt}`,

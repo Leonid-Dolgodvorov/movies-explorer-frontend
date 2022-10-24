@@ -100,6 +100,32 @@ function App() {
   const handleBurger = () => {
     setIsBurgerOpened(!isBurgerOpened);
   };
+
+  const saveMovie = (movie) => {
+    console.log(movie)
+    mainApi.addCard({
+      nameRU: movie.nameRU,
+      nameEN: movie.nameEN,
+      director: movie.director,
+      country: movie.country,
+      year: movie.year,
+      duration: movie.duration,
+      description: movie.description.substring(0, 199),
+      trailerLink: movie.trailerLink,
+      url: movie.image.url,
+      movieId: movie.id.toString(),      
+     })
+      .then((newMovie) => {
+        setSavedMovies([newMovie, ...savedMovies]);
+      })
+      .catch((err) => {
+          console.log(err);
+      })
+  };
+
+  const deleteMovie = () => {
+
+  }
   
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -118,6 +144,8 @@ function App() {
             onBurger={handleBurger}
             isLoading={isLoading}
             setIsLoading={setIsLoading}
+            saveMovie={saveMovie}
+            deleteMovie={deleteMovie}
             component={Movies}/>
           <ProtectedRoute
             path="/saved-movies"

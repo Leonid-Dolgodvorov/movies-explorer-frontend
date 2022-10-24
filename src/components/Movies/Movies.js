@@ -5,7 +5,7 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer"
 
-function Movies({loggedIn, isBurgerOpened, onBurger, isLoading, setIsLoading}) {
+function Movies({loggedIn, isBurgerOpened, onBurger, isLoading, setIsLoading, saveMovie, deleteMovie}) {
 
   const [sliceQuantity, setSliceQuantity] = React.useState(0);
   const [isShortBtnActive, setIsShortBtnActive] = React.useState(false);
@@ -29,7 +29,7 @@ function Movies({loggedIn, isBurgerOpened, onBurger, isLoading, setIsLoading}) {
     } else if (window.innerWidth <= 480) {
       setSliceQuantity(2);
     }
-  }, [window.innerWidth]);
+  }, []);
 
   const onMoreFilms = () => {
     if (window.innerWidth >= 1280) {
@@ -74,6 +74,8 @@ function Movies({loggedIn, isBurgerOpened, onBurger, isLoading, setIsLoading}) {
             slicedMoviesArr
           }
           localSavedMovies={JSON.parse(localSavedMovies)}
+          saveMovie={saveMovie}
+          deleteMovie={deleteMovie}
           isLoading={isLoading}/>
           <button
             type="button"

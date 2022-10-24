@@ -1,7 +1,7 @@
 import React from "react";
 import "./MoviesCard.css";
 
-function MoviesCard({movie, isSaved}) {
+function MoviesCard({movie, isSaved, saveMovie, deleteMovie}) {
 
   return (
     <li className="movies__card">
@@ -19,9 +19,15 @@ function MoviesCard({movie, isSaved}) {
       </a>
       <>
         {isSaved ?
-          <button type="button" className="movies__button movies__saved-btn"></button>
+          <button
+            type="button"
+            className="movies__button movies__saved-btn"
+            onClick={deleteMovie}/>
           :
-          <button type="button" className="movies__button movies__save-btn"></button>
+          <button
+            type="button"
+            className="movies__button movies__save-btn"
+            onClick={() => saveMovie(movie)}/>
         }
       </>
     </li>
