@@ -5,7 +5,6 @@ function SearchForm({isShortBtnActive, handleShortBtn, handleFind, setInputValue
 
   const handleSearchChange = (e) => {
     setInputValue(e.target.value);
-    console.log(e.target.value)
   };
 
   return (
@@ -13,6 +12,7 @@ function SearchForm({isShortBtnActive, handleShortBtn, handleFind, setInputValue
       <div className="searchform__wrapper">
         <form 
           className="searchform__form"
+          noValidate
           onSubmit={handleFind}>
 
           <input
@@ -20,6 +20,7 @@ function SearchForm({isShortBtnActive, handleShortBtn, handleFind, setInputValue
             type="text"
             placeholder="Фильм"
             required
+            
             onChange={handleSearchChange}/>
           <button
             className="searchform__search-btn"

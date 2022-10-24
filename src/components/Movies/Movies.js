@@ -11,7 +11,13 @@ function Movies({loggedIn, isBurgerOpened, onBurger, allMovies, savedMovies}) {
   const [sliceQuantity, setSliceQuantity] = React.useState(0);
   const [isShortBtnActive, setIsShortBtnActive] = React.useState(false);
   const [inputValue, setInputValue] = React.useState('');
-  let slicedMoviesArr = allMovies.slice(0, sliceQuantity);
+  const [slicedMoviesArr, setSlicedMoviesArr] = React.useState([]);
+
+  React.useEffect(() => {
+    if (localStorage.getItem("localMovies")) {
+      setSlicedMoviesArr((JSON.parse(localStorage.getItem("localMovies")).slice(0, sliceQuantity)));
+    }
+  }, [localStorage.getItem("localMovies"), sliceQuantity]);
 
   React.useEffect(() => {
     if (window.innerWidth >= 1280) {
@@ -29,16 +35,17 @@ function Movies({loggedIn, isBurgerOpened, onBurger, allMovies, savedMovies}) {
     } else {
       setSliceQuantity(sliceQuantity + 2);
     }
-  }
+  };
 
   const handleShortBtn = () => {
     setIsShortBtnActive(!isShortBtnActive);
-  }
+  };
 
   const handleFind = (e) => {
-    const findMovies = (movie, keyword) => movie.nameRU.toLowerCase().includes(keyword.toLowerCase())
-    slicedMoviesArr = slicedMoviesArr.filter(movie => findMovies(movie, inputValue))    
-  }
+    e.preventDefault();
+    const findMovies = (movie, keyword) => movie.nameRU.toLowerCase().includes(keyword.toLowerCase()) || movie.nameEN.toLowerCase().includes(keyword.toLowerCase());
+    setSlicedMoviesArr(slicedMoviesArr.filter(movie => findMovies(movie, inputValue)));
+  };
 
   const findShortMovies = (movies) =>
     movies.filter((movie) => 
@@ -60,7 +67,7 @@ function Movies({loggedIn, isBurgerOpened, onBurger, allMovies, savedMovies}) {
           />
         <MoviesCardList
           slicedMoviesArr={isShortBtnActive ? 
-            findShortMovies(slicedMoviesArr) 
+            findShortMovies(allMovies) 
             :
             slicedMoviesArr
           }

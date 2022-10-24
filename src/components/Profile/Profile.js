@@ -6,6 +6,13 @@ function Profile({loggedIn, onUpdateUserInfo, onSignOut}) {
 
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
+  const [user, setUser] = React.useState({});
+
+  React.useEffect(() => {
+    if (localStorage.getItem("userInfo")) { 
+      setUser(localStorage.getItem("userInfo"))
+    }
+  }, []);
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -24,7 +31,7 @@ function Profile({loggedIn, onUpdateUserInfo, onSignOut}) {
     <>
       <Header loggedIn={loggedIn}/>
       <section className="profile">
-        <h1 className="profile__title">Привет, Виталий!</h1>
+        <h1 className="profile__title">Привет, {user.name}!</h1>
         <form className="profile__form" onSubmit={handleSubmit}>
           <fieldset className="profile__inputs">
             <label className="profile__label">

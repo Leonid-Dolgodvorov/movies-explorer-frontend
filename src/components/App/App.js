@@ -44,14 +44,20 @@ function App() {
       Promise.all([moviesApi.getMovies(), mainApi.getUserMovies()])
         .then(([allMoviesList, savedMoviesList]) => {
           setAllMovies(allMoviesList);
-          setSavedMovies(savedMoviesList.data);          
-          history.push("/movies")
+          Array.isArray(allMoviesList);
+          setSavedMovies(JSON.stringify(savedMoviesList.data));
         })
         .catch((err) => {
           console.log(err)
         })
     }
   }, [loggedIn]);
+
+  React.useEffect(() => {
+    localStorage.setItem("localMovies", JSON.stringify(allMovies));
+    localStorage.setItem("localSavedMovies", savedMovies);
+    localStorage.setItem("userInfo", currentUser)
+  }, [allMovies, savedMovies, currentUser]);
 
   const handleRegistration = (name, email, password) => {
     auth
@@ -63,9 +69,11 @@ function App() {
   const handleAuthorization = (email, password) => {
     auth
       .authorize(email, password)
-      .then((res) => {
-          setLoggedIn(true);
-          history.push("/movies");
+      .then((data) => auth.getData(data.token))
+      .then((userInfo) => {
+        setCurrentUser(JSON.stringify(userInfo));
+        setLoggedIn(true);
+        history.push("/movies");
       })
       .catch((err) => console.log(err))
   };
@@ -73,8 +81,8 @@ function App() {
   const handleUpdateUserInfo = (name, email) => {
     mainApi
         .editUserInfo(name, email)
-        .then((user) => {
-            setCurrentUser(user);
+        .then((userInfo) => {
+            setCurrentUser(JSON.stringify(userInfo));
         })
         .catch((err) => console.log(err))
   };
@@ -83,13 +91,16 @@ function App() {
     setLoggedIn(false);
     setIsBurgerOpened(false);
     localStorage.removeItem("jwt");
+    localStorage.removeItem("userInfo");
+    localStorage.removeItem("localSavedMovies");
+    localStorage.removeItem("localMovies");
     history.push("/");
   };
 
   const handleBurger = () => {
     setIsBurgerOpened(!isBurgerOpened);
-  };  
-
+  };
+  
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
