@@ -5,21 +5,25 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer"
 
-function Movies({loggedIn, isBurgerOpened, onBurger, isLoading, setIsLoading, saveMovie, deleteMovie}) {
+function Movies({loggedIn, isBurgerOpened, onBurger, isLoading, setIsLoading, allMovies, savedMovies, saveMovie, deleteMovie}) {
 
   const [sliceQuantity, setSliceQuantity] = React.useState(0);
   const [isShortBtnActive, setIsShortBtnActive] = React.useState(false);
   const [inputValue, setInputValue] = React.useState('');
   const [slicedMoviesArr, setSlicedMoviesArr] = React.useState([]);
   
-  const localMovies = localStorage.getItem("localMovies");
-  const localSavedMovies = localStorage.getItem("localSavedMovies");
+/*   const localMovies = localStorage.getItem("localMovies");
+  const localSavedMovies = localStorage.getItem("localSavedMovies"); */
 
-  React.useEffect(() => {
+/*   React.useEffect(() => {
     if (localMovies) {
       setSlicedMoviesArr((JSON.parse(localMovies).slice(0, sliceQuantity)));
     }
-  }, [localMovies, sliceQuantity]);
+  }, [localMovies, sliceQuantity]); */
+
+  React.useEffect(() => {
+    setSlicedMoviesArr(allMovies.slice(0, sliceQuantity));
+  }, [allMovies, sliceQuantity]);
 
   React.useEffect(() => {
     if (window.innerWidth >= 1280) {
@@ -52,7 +56,7 @@ function Movies({loggedIn, isBurgerOpened, onBurger, isLoading, setIsLoading, sa
   const findShortMovies = (movies) =>
     movies.filter((movie) => 
       movie.duration < 40);
-
+      
   return (
     <>
       <Header
@@ -69,11 +73,11 @@ function Movies({loggedIn, isBurgerOpened, onBurger, isLoading, setIsLoading, sa
           />
         <MoviesCardList
           slicedMoviesArr={isShortBtnActive ? 
-            findShortMovies(JSON.parse(localMovies)) 
+            findShortMovies(allMovies) 
             :
             slicedMoviesArr
           }
-          localSavedMovies={JSON.parse(localSavedMovies)}
+          savedMovies={savedMovies}
           saveMovie={saveMovie}
           deleteMovie={deleteMovie}
           isLoading={isLoading}/>

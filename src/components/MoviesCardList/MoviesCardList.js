@@ -3,14 +3,9 @@ import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import Preloader from "../Preloader/Preloader";
 
-const MoviesCardList = ({slicedMoviesArr, localSavedMovies, isLoading, saveMovie, deleteMovie}) => {
+const MoviesCardList = ({slicedMoviesArr, savedMovies, isLoading, saveMovie, deleteMovie}) => {
 
-  const isMovieSaved = (movie) => {
-    if (localSavedMovies) {
-      return localSavedMovies.some(savedMovie => savedMovie.movieId === movie.id)
-    }
-    else {return false}
-  };
+  const isMovieSaved = (movie) => savedMovies.some(savedMovie => savedMovie.movieId === movie.id);
 
   return (
     <section className="movies__card-list">
@@ -19,8 +14,9 @@ const MoviesCardList = ({slicedMoviesArr, localSavedMovies, isLoading, saveMovie
         {slicedMoviesArr.map((movie) => {
             return (
             <MoviesCard
-              key={movie.id}
+              key={movie.id || movie._id}
               isSaved={isMovieSaved(movie)}
+              savedMovies={savedMovies}
               saveMovie={saveMovie}
               deleteMovie={deleteMovie}
               movie={movie}/>)}

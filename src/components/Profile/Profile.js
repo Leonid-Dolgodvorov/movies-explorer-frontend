@@ -2,16 +2,19 @@ import React from "react";
 import "./Profile.css"
 import Header from "../Header/Header"
 
-function Profile({loggedIn, onUpdateUserInfo, onSignOut}) {
+function Profile({loggedIn, currentUser, onUpdateUserInfo, onSignOut}) {
 
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [user, setUser] = React.useState({});
 
-  React.useEffect(() => {
+/*   React.useEffect(() => {
     if (localStorage.getItem("userInfo")) { 
       setUser(JSON.parse(localStorage.getItem("userInfo")))
     }
+  }, []); */
+  React.useEffect(() => {
+    setUser(currentUser);
   }, []);
 
   const handleNameChange = (e) => {

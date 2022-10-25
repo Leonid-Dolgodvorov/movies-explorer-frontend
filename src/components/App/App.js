@@ -30,7 +30,7 @@ function App() {
       auth.getData(jwt) 
         .then((userInfo) => {
           setLoggedIn(true);
-          setCurrentUser(JSON.stringify(userInfo));
+          setCurrentUser(userInfo);
         })
         .catch((err) => {
           console.log(err)
@@ -41,6 +41,7 @@ function App() {
   }, []);
 
   React.useEffect(() => {
+    setIsLoading(true)
     if (loggedIn) {
       Promise.all([moviesApi.getMovies(), mainApi.getUserMovies()])
         .then(([allMoviesList, savedMoviesList]) => {
@@ -50,14 +51,15 @@ function App() {
         .catch((err) => {
           console.log(err)
         })
+        .finally(() => setIsLoading(false))
     }
   }, [loggedIn]);
   
-  React.useEffect(() => {
+/*   React.useEffect(() => {
     localStorage.setItem("localMovies", JSON.stringify(allMovies));
     localStorage.setItem("localSavedMovies", JSON.stringify(savedMovies));
     localStorage.setItem("userInfo", currentUser)
-  }, [allMovies, savedMovies, currentUser]);
+  }, [allMovies, savedMovies, currentUser]); */
 
   const handleRegistration = (name, email, password) => {
     auth
@@ -71,7 +73,7 @@ function App() {
       .authorize(email, password)
       .then((data) => auth.getData(data.token))
       .then((userInfo) => {
-        setCurrentUser(JSON.stringify(userInfo));
+        setCurrentUser(userInfo);
         setLoggedIn(true);
         history.push("/movies");
       })
@@ -102,12 +104,11 @@ function App() {
   };
 
   const saveMovie = (movie) => {
-    console.log(movie)
     mainApi.addCard({
-      nameRU: movie.nameRU,
-      nameEN: movie.nameEN,
-      director: movie.director,
-      country: movie.country,
+      nameRU: movie.nameRU.substring(0, 29),
+      nameEN: movie.nameEN.substring(0, 29),
+      director: movie.director.substring(0, 29),
+      country: movie.country.substring(0, 29),
       year: movie.year,
       duration: movie.duration,
       description: movie.description.substring(0, 199),
@@ -115,16 +116,19 @@ function App() {
       url: movie.image.url,
       movieId: movie.id.toString(),      
      })
-      .then((newMovie) => {
-        setSavedMovies([newMovie, ...savedMovies]);
-      })
+      .then(() => mainApi.getUserMovies())
       .catch((err) => {
-          console.log(err);
+        console.log(err);
       })
   };
 
-  const deleteMovie = () => {
-
+  const deleteMovie = (movieId) => {
+    console.log(movieId)
+    mainApi.deleteCard(movieId)
+      .then(() => mainApi.getUserMovies())
+      .catch((err) => {
+        console.log(err);
+      })
   }
   
   return (
@@ -144,6 +148,8 @@ function App() {
             onBurger={handleBurger}
             isLoading={isLoading}
             setIsLoading={setIsLoading}
+            allMovies={allMovies}
+            savedMovies={savedMovies}
             saveMovie={saveMovie}
             deleteMovie={deleteMovie}
             component={Movies}/>
@@ -160,6 +166,7 @@ function App() {
           <ProtectedRoute
             path="/profile"
             loggedIn={loggedIn}
+            currentUser={currentUser}
             onUpdateUserInfo={handleUpdateUserInfo}
             onSignOut={handleSignOut}
             component={Profile}/>
