@@ -1,6 +1,7 @@
 import React from "react";
 import { Switch, Route, useHistory } from "react-router-dom";
 import "./App.css";
+import Popup from "../Popup/Popup";
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
 import SavedMovies from "../SavedMovies/SavedMovies";
@@ -23,6 +24,9 @@ function App() {
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [isBurgerOpened, setIsBurgerOpened] = React.useState(false);
   const [isSearchBtnHandled, setIsSearchBtnHandled] = React.useState(false);
+  const [isPopupOpened, setIsPopupOpened] = React.useState(true);
+  const [isErrored, setIsErrored] = React.useState(false);
+  const [popupText, setPopupText] = React.useState("проверка");
   const history = useHistory();
 
   React.useEffect(() => {
@@ -47,10 +51,9 @@ function App() {
         .then(([allMoviesList, savedMoviesList]) => {
           setAllMovies(allMoviesList);
           setSavedMovies(savedMoviesList.data);
+          setIsSearchBtnHandled(true);
         })
-        .catch((err) => {
-          console.log(err)
-        })
+        .catch((err) => openErrorPopup(err))
     }
   }, [loggedIn]);
 
@@ -59,12 +62,28 @@ function App() {
           setIsSearchBtnHandled(true);
     }
   }, [localStorage.getItem("foundMovies"), localStorage.getItem("foundSavedMovies")]); */
+  const openErrorPopup = (err) => {
+    setIsPopupOpened(true);
+    setIsErrored(true);
+    setPopupText(err);
+  }
+
+  const openSuccessPopup = (res) => {
+    setIsPopupOpened(true);
+    setIsErrored(false);
+    setPopupText(res);
+  }
+
+  const closePopup = () => {
+    setIsPopupOpened(false);
+    setPopupText('');
+  }
 
   const handleRegistration = (name, email, password) => {
     auth
       .register(name, email, password)
       .then(() => handleAuthorization(email, password))
-      .catch((err) => console.log(err))
+      .catch((err) => openErrorPopup(err));
   };
 
   const handleAuthorization = (email, password) => {
@@ -76,7 +95,7 @@ function App() {
         setLoggedIn(true);
         history.push("/movies");
       })
-      .catch((err) => console.log(err))
+      .catch((err) => openErrorPopup(err))
   };
 
   const handleUpdateUserInfo = (name, email) => {
@@ -84,8 +103,9 @@ function App() {
         .editUserInfo(name, email)
         .then((userInfo) => {
             setCurrentUser(userInfo.data);
+            openSuccessPopup("Данные успешно изменены")
         })
-        .catch((err) => console.log(err))
+        .catch((err) => openErrorPopup(err))
   };
 
   const handleSignOut = () => {
@@ -140,6 +160,13 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
+        <Popup
+          isErrored={isErrored}
+          popupText={popupText}
+          isPopupOpened={isPopupOpened}
+          setIsPopupOpened={setIsPopupOpened}
+          closePopup={closePopup}
+          />
         <Switch>
           <Route exact path="/">
             <Main 
