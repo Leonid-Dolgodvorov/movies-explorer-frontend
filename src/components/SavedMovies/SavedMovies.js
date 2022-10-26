@@ -5,7 +5,7 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer"
 
-function Movies({loggedIn, isBurgerOpened, onBurger, isLoading, setIsLoading, saveMovie, deleteMovie}) {
+function Movies({loggedIn, isBurgerOpened, onBurger, isLoading, setIsLoading, saveMovie, deleteMovie, savedMovies}) {
 
   const [sliceQuantity, setSliceQuantity] = React.useState(0);
   const [isShortBtnActive, setIsShortBtnActive] = React.useState(false);
@@ -15,10 +15,9 @@ function Movies({loggedIn, isBurgerOpened, onBurger, isLoading, setIsLoading, sa
   const localSavedMovies = localStorage.getItem("localSavedMovies");
 
   React.useEffect(() => {
-    if (localSavedMovies) {
-      setSlicedMoviesArr((JSON.parse(localSavedMovies).slice(0, sliceQuantity)));
-    }
-  }, [localSavedMovies, sliceQuantity]);
+    setSlicedMoviesArr(savedMovies.slice(0, sliceQuantity));
+
+  }, [savedMovies, sliceQuantity]);
 
   React.useEffect(() => {
     if (window.innerWidth >= 1280) {
@@ -60,11 +59,11 @@ function Movies({loggedIn, isBurgerOpened, onBurger, isLoading, setIsLoading, sa
           />
         <MoviesCardList
           slicedMoviesArr={isShortBtnActive ? 
-            findShortMovies(JSON.parse(localSavedMovies)) 
+            findShortMovies(savedMovies) 
             :
             slicedMoviesArr
           }
-          localSavedMovies={JSON.parse(localSavedMovies)}
+          savedMovies={savedMovies}
           saveMovie={saveMovie}
           deleteMovie={deleteMovie}
           isLoading={isLoading}/>

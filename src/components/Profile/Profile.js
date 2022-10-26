@@ -1,33 +1,39 @@
 import React from "react";
-import "./Profile.css"
-import Header from "../Header/Header"
+import Header from "../Header/Header";
+import useFormWithValidation from "../../utils/useFormWithValidation";
+import "./Profile.css";
 
 function Profile({loggedIn, currentUser, onUpdateUserInfo, onSignOut}) {
 
-  const [name, setName] = React.useState("");
-  const [email, setEmail] = React.useState("");
   const [user, setUser] = React.useState({});
+
+  const {
+    values,
+    handleChange,
+    errors,
+    isValid,
+    resetForm
+  } = useFormWithValidation();
 
 /*   React.useEffect(() => {
     if (localStorage.getItem("userInfo")) { 
       setUser(JSON.parse(localStorage.getItem("userInfo")))
+    } else {
+      setUser(currentUser)
     }
-  }, []); */
+  }, [currentUser]); */
+
   React.useEffect(() => {
     setUser(currentUser);
-  }, []);
+  }, [currentUser]);
 
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  }
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onUpdateUserInfo(name, email);
+    if (values.profile_name !== user.name || values.profile_email !== user.email) {
+      onUpdateUserInfo(values.profile_name, values.profile_email);
+      resetForm()
+    }
   }
 
   return (
@@ -41,30 +47,44 @@ function Profile({loggedIn, currentUser, onUpdateUserInfo, onSignOut}) {
               Имя
               <input
                 className="profile__input"
-                name="profile__name"
+                name="profile_name"
                 type="text"
-                id="profile__name"
                 autoComplete="off"
-                onChange={handleNameChange}
+                minLength="2"
+                maxLength="30"
+                onChange={handleChange}
+                value={values.profile_name || ""}
                 required/>
+            <span className="profile__input-error">{errors.profile_name}</span>
             </label>
-            <span className="profile__input-error"></span>
+            
             <label className="profile__label">
               E-mail
               <input
                 className="profile__input"
-                name="profile__email"
+                name="profile_email"
                 type="email"
-                id="profile__email"
                 autoComplete="off"
-                onChange={handleEmailChange}
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}"
+                onChange={handleChange}
+                value={values.profile_email || ""}
                 required/>
+            <span className="profile__input-error">{errors.profile_email}</span>
             </label>
-            <span className="profile__input-error"></span>
-            <button className="profile__button" type="submit">Редактировать</button>
+            
+            <button
+              type="submit"
+              disabled={!isValid}
+              className={`profile__button ${!isValid && "profile__button_disabled"}`}
+            > Редактировать
+            </button>
           </fieldset>
         </form>
-        <button className="profile__button profile__button-signout" onClick={onSignOut}>Выйти из аккаунта</button>
+        <button
+          className="profile__button profile__button-signout"
+          onClick={onSignOut}
+        > Выйти из аккаунта
+        </button>
       </section>
     </>
   );

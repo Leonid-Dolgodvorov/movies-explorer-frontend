@@ -1,28 +1,22 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import useFormWithValidation from "../../utils/useFormWithValidation";
 import "./Register.css";
 
-function Register({onRegister}) {
+const Register = ({onRegister}) => {
 
-  const [name, setName] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  }
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  }
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  }
+  const {
+    values,
+    handleChange,
+    errors,
+    isValid,
+    resetForm
+  } = useFormWithValidation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onRegister(name, email, password);
+    onRegister(values.register_name, values.register_email, values.register_password);
+    resetForm();
   }
 
   return (
@@ -33,38 +27,54 @@ function Register({onRegister}) {
         <label className="register__label">Имя</label>
         <input
           className="register__input"
-          name="name"
+          name="register_name"
           type="text"
-          id="name"
           autoComplete="off"
-          onChange={handleNameChange}
+          minLength="2"
+          maxLength="30"
+          onChange={handleChange}
+          value={values.register_name || ""}
           required/>
-        <span className="register__input-error"></span>
+        <span className="register__input-error">{errors.register_name}</span>
 
         <label className="register__label">E-mail</label>
         <input
           className="register__input"
-          name="email"
+          name="register_email"
           type="email"
-          id="email"
           autoComplete="off"
-          onChange={handleEmailChange}
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}"
+          onChange={handleChange}
+          value={values.register_email || ""}
           required/>
-        <span className="register__input-error"></span>
+        <span className="register__input-error">{errors.register_email}</span>
 
         <label className="register__label">Пароль</label>
         <input
           className="register__input"
-          name="password"
+          name="register_password"
           type="password"
-          id="password"
           autoComplete="off"
-          onChange={handlePasswordChange}
+          onChange={handleChange}
+          value={values.register_password || ""}
           required/>
-        <span className="register__input-error"></span>
+        <span className="register__input-error">{errors.register_password}</span>
 
-        <button type="submit" className="register__button">Зарегистрироваться</button>
-        <p className='register__link-text'>Уже зарегистрированы? <Link className='register__link' to='/signin'>Войти</Link></p>
+        <button
+          type="submit"
+          disabled={!isValid}
+          className={`register__button ${!isValid && "register__button_disabled"}`}
+          > Зарегистрироваться
+        </button>
+        <p
+          className="register__link-text"
+        > Уже зарегистрированы? 
+          <Link
+            className="register__link"
+            to="/signin"
+          > Войти
+          </Link>
+        </p>
       </form>
     </section>
   )

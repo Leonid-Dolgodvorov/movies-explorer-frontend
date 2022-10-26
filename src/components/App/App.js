@@ -21,7 +21,8 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [allMovies, setAllMovies] = React.useState([]);
   const [savedMovies, setSavedMovies] = React.useState([]);
-  const [isBurgerOpened, setIsBurgerOpened] = React.useState(false)
+  const [isBurgerOpened, setIsBurgerOpened] = React.useState(false);
+  const [isSearchBtnHandled, setIsSearchBtnHandled] = React.useState(false);
   const history = useHistory();
 
   React.useEffect(() => {
@@ -41,7 +42,6 @@ function App() {
   }, []);
 
   React.useEffect(() => {
-    setIsLoading(true)
     if (loggedIn) {
       Promise.all([moviesApi.getMovies(), mainApi.getUserMovies()])
         .then(([allMoviesList, savedMoviesList]) => {
@@ -51,15 +51,14 @@ function App() {
         .catch((err) => {
           console.log(err)
         })
-        .finally(() => setIsLoading(false))
     }
   }, [loggedIn]);
-  
+
 /*   React.useEffect(() => {
-    localStorage.setItem("localMovies", JSON.stringify(allMovies));
-    localStorage.setItem("localSavedMovies", JSON.stringify(savedMovies));
-    localStorage.setItem("userInfo", currentUser)
-  }, [allMovies, savedMovies, currentUser]); */
+    if (localStorage.getItem("foundMovies") || localStorage.getItem("foundSavedMovies")) {
+          setIsSearchBtnHandled(true);
+    }
+  }, [localStorage.getItem("foundMovies"), localStorage.getItem("foundSavedMovies")]); */
 
   const handleRegistration = (name, email, password) => {
     auth
@@ -84,7 +83,7 @@ function App() {
     mainApi
         .editUserInfo(name, email)
         .then((userInfo) => {
-            setCurrentUser(JSON.stringify(userInfo));
+            setCurrentUser(userInfo.data);
         })
         .catch((err) => console.log(err))
   };
@@ -92,10 +91,11 @@ function App() {
   const handleSignOut = () => {
     setLoggedIn(false);
     setIsBurgerOpened(false);
+    setIsSearchBtnHandled(false);
     localStorage.removeItem("jwt");
     localStorage.removeItem("userInfo");
-    localStorage.removeItem("localSavedMovies");
-    localStorage.removeItem("localMovies");
+    localStorage.removeItem("foundSavedMovies");
+    localStorage.removeItem("foundMovies");
     history.push("/");
   };
 
@@ -117,6 +117,7 @@ function App() {
       movieId: movie.id.toString(),      
      })
       .then(() => mainApi.getUserMovies())
+      .then((savedMoviesList) => setSavedMovies(savedMoviesList.data))
       .catch((err) => {
         console.log(err);
       })
@@ -126,10 +127,15 @@ function App() {
     console.log(movieId)
     mainApi.deleteCard(movieId)
       .then(() => mainApi.getUserMovies())
+      .then((savedMoviesList) => setSavedMovies(savedMoviesList.data))
       .catch((err) => {
         console.log(err);
       })
   }
+
+  const handleReturn = () => {
+    history.goBack();
+  };
   
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -148,6 +154,8 @@ function App() {
             onBurger={handleBurger}
             isLoading={isLoading}
             setIsLoading={setIsLoading}
+            isSearchBtnHandled={isSearchBtnHandled}
+            setIsSearchBtnHandled={setIsSearchBtnHandled}
             allMovies={allMovies}
             savedMovies={savedMovies}
             saveMovie={saveMovie}
@@ -158,7 +166,6 @@ function App() {
             loggedIn={loggedIn}
             isBurgerOpened={isBurgerOpened}
             onBurger={handleBurger}
-            allMovies={allMovies}
             savedMovies={savedMovies}
             isLoading={isLoading}
             setIsLoading={setIsLoading}
@@ -177,7 +184,8 @@ function App() {
             <Register onRegister={handleRegistration}/>
           </Route>
           <Route path="*">
-            <NotFound/>
+            <NotFound
+              handleReturn={handleReturn}/>
           </Route>
         </Switch>
       </div>

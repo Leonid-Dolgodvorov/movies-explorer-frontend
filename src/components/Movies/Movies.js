@@ -5,7 +5,18 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer"
 
-function Movies({loggedIn, isBurgerOpened, onBurger, isLoading, setIsLoading, allMovies, savedMovies, saveMovie, deleteMovie}) {
+const Movies = ({
+  loggedIn,
+  isBurgerOpened,
+  onBurger,
+  isLoading,
+  setIsLoading,
+  allMovies,
+  savedMovies,
+  saveMovie,
+  deleteMovie,
+  isSearchBtnHandled,
+  setIsSearchBtnHandled}) => {
 
   const [sliceQuantity, setSliceQuantity] = React.useState(0);
   const [isShortBtnActive, setIsShortBtnActive] = React.useState(false);
@@ -22,7 +33,12 @@ function Movies({loggedIn, isBurgerOpened, onBurger, isLoading, setIsLoading, al
   }, [localMovies, sliceQuantity]); */
 
   React.useEffect(() => {
-    setSlicedMoviesArr(allMovies.slice(0, sliceQuantity));
+    if (localStorage.getItem("foundMovies" && localStorage.getItem("SearchBtnHandled") === true)) {
+      setSlicedMoviesArr(JSON.parse(localStorage.getItem("foundMovies")).slice(0, sliceQuantity))
+    } 
+    else {
+      setSlicedMoviesArr(allMovies.slice(0, sliceQuantity))
+    }
   }, [allMovies, sliceQuantity]);
 
   React.useEffect(() => {
@@ -51,12 +67,15 @@ function Movies({loggedIn, isBurgerOpened, onBurger, isLoading, setIsLoading, al
     e.preventDefault();
     const findMovies = (movie, keyword) => movie.nameRU.toLowerCase().includes(keyword.toLowerCase()) || movie.nameEN.toLowerCase().includes(keyword.toLowerCase());
     setSlicedMoviesArr(slicedMoviesArr.filter(movie => findMovies(movie, inputValue)));
+    localStorage.setItem("foundMovies", JSON.stringify(slicedMoviesArr.filter(movie => findMovies(movie, inputValue))));
+    setIsSearchBtnHandled(true);
+    localStorage.setItem("SearchBtnHandled", true)
   };
 
   const findShortMovies = (movies) =>
-    movies.filter((movie) => 
+    movies.filter((movie) =>
       movie.duration < 40);
-      
+
   return (
     <>
       <Header
@@ -71,22 +90,30 @@ function Movies({loggedIn, isBurgerOpened, onBurger, isLoading, setIsLoading, al
           setInputValue={setInputValue}
           handleFind={handleFind}
           />
-        <MoviesCardList
-          slicedMoviesArr={isShortBtnActive ? 
-            findShortMovies(allMovies) 
-            :
-            slicedMoviesArr
-          }
-          savedMovies={savedMovies}
-          saveMovie={saveMovie}
-          deleteMovie={deleteMovie}
-          isLoading={isLoading}/>
-          <button
-            type="button"
-            onClick={onMoreFilms}
-            className="movies__more">
-            Ещё
-          </button>
+        {isSearchBtnHandled ?
+          <>
+            <MoviesCardList
+              slicedMoviesArr={isShortBtnActive ? 
+                findShortMovies(slicedMoviesArr) 
+                :
+                slicedMoviesArr
+              }
+              savedMovies={savedMovies}
+              saveMovie={saveMovie}
+              deleteMovie={deleteMovie}
+              isLoading={isLoading}
+            />
+            <button
+              type="button"
+              onClick={onMoreFilms}
+              className="movies__more">
+              Ещё
+            </button>
+            </>
+            : 
+            <>
+            </>            
+        }
       </div>      
       <Footer/>
       </>
