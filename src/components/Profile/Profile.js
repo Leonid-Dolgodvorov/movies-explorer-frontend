@@ -3,7 +3,7 @@ import Header from "../Header/Header";
 import useFormWithValidation from "../../utils/useFormWithValidation";
 import "./Profile.css";
 
-function Profile({loggedIn, currentUser, onUpdateUserInfo, onSignOut}) {
+const Profile = ({loggedIn, currentUser, onUpdateUserInfo, onSignOut}) => {
 
   const [user, setUser] = React.useState({});
 
@@ -14,14 +14,6 @@ function Profile({loggedIn, currentUser, onUpdateUserInfo, onSignOut}) {
     isValid,
     resetForm
   } = useFormWithValidation();
-
-/*   React.useEffect(() => {
-    if (localStorage.getItem("userInfo")) { 
-      setUser(JSON.parse(localStorage.getItem("userInfo")))
-    } else {
-      setUser(currentUser)
-    }
-  }, [currentUser]); */
 
   React.useEffect(() => {
     setUser(currentUser);

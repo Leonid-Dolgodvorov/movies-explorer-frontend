@@ -2,7 +2,7 @@ import React from "react";
 import "./Promo.css"
 import logo from "../../images/web.png"
 
-function Promo() {
+const Promo = () => {
   return (
     <section className="promo">
       <div className="promo__container">

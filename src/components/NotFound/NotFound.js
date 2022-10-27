@@ -1,7 +1,7 @@
 import React from "react";
 import "./NotFound.css";
 
-function NotFound({handleReturn}) {
+const NotFound = ({handleReturn}) => {
   return (
     <section className="not-found">
       <div className="not-found__wrapper">

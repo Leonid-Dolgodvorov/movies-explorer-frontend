@@ -1,7 +1,7 @@
 import React from 'react'
 import './Preloader.css'
 
-function Preloader({isLoading}) {
+const Preloader = ({isLoading}) => {
   return (
     <>
       {

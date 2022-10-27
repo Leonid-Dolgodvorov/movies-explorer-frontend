@@ -1,10 +1,15 @@
 import React from "react";
 import "./SearchForm.css";
 
-function SearchForm({isShortBtnActive, handleShortBtn, handleFind, setInputValue}) {
+const SearchForm = ({
+  isShortBtnActive,
+  handleShortBtn,
+  handleSearch,
+  searchQuery,
+  setSearchQuery}) => {
 
   const handleSearchChange = (e) => {
-    setInputValue(e.target.value);
+    setSearchQuery(e.target.value);
   };
 
   return (
@@ -13,14 +18,14 @@ function SearchForm({isShortBtnActive, handleShortBtn, handleFind, setInputValue
         <form 
           className="searchform__form"
           noValidate
-          onSubmit={handleFind}>
+          onSubmit={handleSearch}>
 
           <input
             className="searchform__input"
             type="text"
             placeholder="Фильм"
             required
-            
+            value={searchQuery}
             onChange={handleSearchChange}/>
           <button
             className="searchform__search-btn"
@@ -37,11 +42,12 @@ function SearchForm({isShortBtnActive, handleShortBtn, handleFind, setInputValue
                 type="button"
                 onClick={handleShortBtn}/>
             : <button
-              className="searchform__shorts-btn searchform__shorts-btn-inactive"
-              type="button"
-              onClick={handleShortBtn}/>
+                className="searchform__shorts-btn
+                  searchform__shorts-btn-inactive"
+                type="button"
+                onClick={handleShortBtn}/>
             }
-          </>              
+          </>
         </div>
       </div>
     </section>

@@ -2,9 +2,17 @@ import React from "react";
 import "./Movies.css";
 import Header from "../Header/Header";
 import SearchForm from "../SearchForm/SearchForm";
+import Preloader from "../Preloader/Preloader"
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
-import { DURATION_SHORT_MOVIE, WIDTH_DESKTOP, WIDTH_MOBILE, MOVIES_LIMIT } from "../../utils/constants";
+import searchMovies from "../../utils/searchMovies";
+import mainApi from "../../utils/MainApi";
+import moviesApi from "../../utils/MoviesApi";
+import {
+  DURATION_SHORT_MOVIE,
+  WIDTH_DESKTOP,
+  WIDTH_MOBILE,
+  MOVIES_LIMIT } from "../../utils/constants";
 
 const Movies = ({
   loggedIn,
@@ -12,35 +20,49 @@ const Movies = ({
   onBurger,
   isLoading,
   setIsLoading,
-  allMovies,
   savedMovies,
   saveMovie,
   deleteMovie,
   isSearchBtnHandled,
-  setIsSearchBtnHandled}) => {
+  setIsSearchBtnHandled,
+  setSavedMovies,
+  openErrorPopup,
+  errorHandler}) => {
 
   const [sliceQuantity, setSliceQuantity] = React.useState(0);
   const [isShortBtnActive, setIsShortBtnActive] = React.useState(false);
-  const [inputValue, setInputValue] = React.useState('');
+  const [searchQuery, setSearchQuery] = React.useState('');
+  const [foundMovies, setFoundMovies] = React.useState([]);
   const [slicedMoviesArr, setSlicedMoviesArr] = React.useState([]);
-  
-/*   const localMovies = localStorage.getItem("localMovies");
-  const localSavedMovies = localStorage.getItem("localSavedMovies"); */
-
-/*   React.useEffect(() => {
-    if (localMovies) {
-      setSlicedMoviesArr((JSON.parse(localMovies).slice(0, sliceQuantity)));
-    }
-  }, [localMovies, sliceQuantity]); */
 
   React.useEffect(() => {
-    if (localStorage.getItem("foundMovies" && localStorage.getItem("SearchBtnHandled") === true)) {
-      setSlicedMoviesArr(JSON.parse(localStorage.getItem("foundMovies")).slice(0, sliceQuantity))
+    setSlicedMoviesArr(foundMovies.slice(0, sliceQuantity))
+  }, [foundMovies, sliceQuantity]);
+
+  React.useEffect(() => {
+    if (localStorage.getItem("foundMovies")) {
+      setFoundMovies(JSON.parse(localStorage.getItem("foundMovies")));
     } 
-    else {
-      setSlicedMoviesArr(allMovies.slice(0, sliceQuantity))
-    }
-  }, [allMovies, sliceQuantity]);
+  }, []);
+
+  React.useEffect(() => {
+    if (localStorage.isSearchBtnHandled) {
+      setIsSearchBtnHandled(JSON.parse(localStorage.getItem("isSearchBtnHandled")));
+    };
+  }, []);
+
+  React.useEffect(() => {
+    if (localStorage.searchQuery) {
+      setSearchQuery(localStorage.getItem("searchQuery"));
+    };
+  }, []);
+
+  React.useEffect(() => {
+    if (localStorage.isShortBtnActive) {
+      setIsShortBtnActive(JSON.parse(localStorage.getItem("isShortBtnActive")));
+      console.log(isShortBtnActive)
+    };
+  }, []);
 
   React.useEffect(() => {
     if (window.innerWidth >= WIDTH_DESKTOP) {
@@ -62,16 +84,42 @@ const Movies = ({
 
   const handleShortBtn = () => {
     setIsShortBtnActive(!isShortBtnActive);
+    localStorage.setItem("isShortBtnActive", JSON.stringify(!isShortBtnActive));
   };
 
-  const handleSearch = (e) => {   
+  const handleSearch = (e) => {
     e.preventDefault();
-    const findMovies = (movie, keyword) => movie.nameRU.toLowerCase().includes(keyword.toLowerCase()) || movie.nameEN.toLowerCase().includes(keyword.toLowerCase());
-    setSlicedMoviesArr(slicedMoviesArr.filter(movie => findMovies(movie, inputValue)));
-    localStorage.setItem("foundMovies", JSON.stringify(slicedMoviesArr.filter(movie => findMovies(movie, inputValue))));
-    setIsSearchBtnHandled(true);
-    localStorage.setItem("SearchBtnHandled", true)
+    setIsSearchBtnHandled(false);
+    setIsLoading(true);
+    Promise.all([moviesApi.getMovies()])
+        .then(([allMoviesList]) => {
+          setIsSearchBtnHandled(true);
+          setFoundMovies(searchMovies(allMoviesList, searchQuery));
+          localStorage.setItem("foundMovies", 
+            JSON.stringify(searchMovies(allMoviesList, searchQuery)));
+          localStorage.setItem("isSearchBtnHandled", true);
+          localStorage.setItem("searchQuery", searchQuery);
+        })
+        .catch((err) => openErrorPopup(errorHandler(err)))
+        .finally(() => setIsLoading(false));
   };
+
+/*   const handleSearch = (e) => {   
+    e.preventDefault();
+    setIsLoading(true);
+    Promise.all([moviesApi.getMovies(), mainApi.getUserMovies()])
+        .then(([allMoviesList, savedMoviesList]) => {
+          setIsSearchBtnHandled(true);
+          setFoundMovies(searchMovies(allMoviesList, searchQuery));
+          setSavedMovies(savedMoviesList)
+          localStorage.setItem("foundMovies", 
+            JSON.stringify(searchMovies(allMoviesList, searchQuery)));
+          localStorage.setItem("isSearchBtnHandled", true);
+          localStorage.setItem("searchQuery", searchQuery);
+        })
+        .catch((err) => openErrorPopup(errorHandler(err)))  
+        .finally(() => setIsLoading(false));
+  }; */
 
   const findShortMovies = (movies) =>
     movies.filter((movie) =>
@@ -88,9 +136,11 @@ const Movies = ({
           isShortBtnActive={isShortBtnActive}
           setIsShortBtnActive={setIsShortBtnActive}
           handleShortBtn={handleShortBtn}
-          setInputValue={setInputValue}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
           handleSearch={handleSearch}
           />
+        <Preloader isLoading={isLoading}/>
         {isSearchBtnHandled ?
           <>
             <MoviesCardList
@@ -102,15 +152,19 @@ const Movies = ({
               savedMovies={savedMovies}
               saveMovie={saveMovie}
               deleteMovie={deleteMovie}
-              isLoading={isLoading}
             />
-            <button
-              type="button"
-              onClick={onMoreFilms}
-              className="movies__more">
-              Ещё
-            </button>
-            </>
+            { slicedMoviesArr.length < foundMovies.length ? 
+              <button
+                type="button"
+                onClick={onMoreFilms}
+                className="movies__more">
+                Ещё
+              </button>
+              :
+              <>
+              </>
+            }
+          </>
             : 
             <>
             </>            

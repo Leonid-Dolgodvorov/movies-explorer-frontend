@@ -13,15 +13,14 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import * as auth from "../../utils/auth";
 import mainApi from "../../utils/MainApi";
-import moviesApi from "../../utils/MoviesApi";
+/* import moviesApi from "../../utils/MoviesApi"; */
 import errorHandler from "../../utils/errorHandler";
 
-function App() {
+const App = () => {
 
   const [loggedIn, setLoggedIn] = React.useState(localStorage.jwt || false);
   const [isLoading, setIsLoading] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
-  const [allMovies, setAllMovies] = React.useState([]);
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [isBurgerOpened, setIsBurgerOpened] = React.useState(false);
   const [isSearchBtnHandled, setIsSearchBtnHandled] = React.useState(false);
@@ -46,23 +45,6 @@ function App() {
     }
   }, []);
 
-  React.useEffect(() => {
-    if (loggedIn) {
-      Promise.all([moviesApi.getMovies(), mainApi.getUserMovies()])
-        .then(([allMoviesList, savedMoviesList]) => {
-          setAllMovies(allMoviesList);
-          setSavedMovies(savedMoviesList.data);
-          setIsSearchBtnHandled(true);
-        })
-        .catch((err) => openErrorPopup(err))
-    }
-  }, [loggedIn]);
-
-/*   React.useEffect(() => {
-    if (localStorage.getItem("foundMovies") || localStorage.getItem("foundSavedMovies")) {
-          setIsSearchBtnHandled(true);
-    }
-  }, [localStorage.getItem("foundMovies"), localStorage.getItem("foundSavedMovies")]); */
   const openErrorPopup = (err) => {
     setIsPopupOpened(true);
     setIsErrored(true);
@@ -86,7 +68,7 @@ function App() {
     auth
       .register(name, email, password)
       .then(() => handleAuthorization(email, password))
-      .catch((err) => openErrorPopup(err));
+      .catch((err) => openErrorPopup(errorHandler(err)));
   };
 
   const handleAuthorization = (email, password) => {
@@ -98,7 +80,7 @@ function App() {
         setLoggedIn(true);
         history.push("/movies");
       })
-      .catch((err) => openErrorPopup(err))
+      .catch((err) => openErrorPopup(errorHandler(err)))
   };
 
   const handleUpdateUserInfo = (name, email) => {
@@ -116,9 +98,10 @@ function App() {
     setIsBurgerOpened(false);
     setIsSearchBtnHandled(false);
     localStorage.removeItem("jwt");
-    localStorage.removeItem("userInfo");
-    localStorage.removeItem("foundSavedMovies");
     localStorage.removeItem("foundMovies");
+    localStorage.removeItem("isSearchBtnHandled");
+    localStorage.removeItem("searchQuery");
+    localStorage.removeItem("isShortBtnActive");
     history.push("/");
   };
 
@@ -141,19 +124,14 @@ function App() {
      })
       .then(() => mainApi.getUserMovies())
       .then((savedMoviesList) => setSavedMovies(savedMoviesList.data))
-      .catch((err) => {
-        console.log(err);
-      })
+      .catch((err) => openErrorPopup(errorHandler(err)))
   };
 
   const deleteMovie = (movieId) => {
-    console.log(movieId)
     mainApi.deleteCard(movieId)
       .then(() => mainApi.getUserMovies())
       .then((savedMoviesList) => setSavedMovies(savedMoviesList.data))
-      .catch((err) => {
-        console.log(err);
-      })
+      .catch((err) => openErrorPopup(errorHandler(err)))
   }
 
   const handleReturn = () => {
@@ -186,11 +164,13 @@ function App() {
             setIsLoading={setIsLoading}
             isSearchBtnHandled={isSearchBtnHandled}
             setIsSearchBtnHandled={setIsSearchBtnHandled}
-            allMovies={allMovies}
             savedMovies={savedMovies}
             saveMovie={saveMovie}
             deleteMovie={deleteMovie}
-            component={Movies}/>
+            openErrorPopup={openErrorPopup}
+            setSavedMovies={setSavedMovies}
+            component={Movies}
+            errorHandler={errorHandler}/>
           <ProtectedRoute
             path="/saved-movies"
             loggedIn={loggedIn}

@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Burger.css"
 
-function Burger({onClose}) {
+const Burger = ({onClose}) => {
   return (
     <section className="burger">
       <div className="burger__container">

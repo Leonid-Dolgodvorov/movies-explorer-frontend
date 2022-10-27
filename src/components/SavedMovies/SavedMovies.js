@@ -5,14 +5,12 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer"
 
-function Movies({loggedIn, isBurgerOpened, onBurger, isLoading, setIsLoading, saveMovie, deleteMovie, savedMovies}) {
+const Movies = ({loggedIn, isBurgerOpened, onBurger, isLoading, setIsLoading, saveMovie, deleteMovie, savedMovies}) => {
 
   const [sliceQuantity, setSliceQuantity] = React.useState(0);
   const [isShortBtnActive, setIsShortBtnActive] = React.useState(false);
   const [inputValue, setInputValue] = React.useState('');
   const [slicedMoviesArr, setSlicedMoviesArr] = React.useState([]);
-  
-  const localSavedMovies = localStorage.getItem("localSavedMovies");
 
   React.useEffect(() => {
     setSlicedMoviesArr(savedMovies.slice(0, sliceQuantity));

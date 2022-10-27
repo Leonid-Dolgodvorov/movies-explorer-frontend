@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import "./Header.css"
 import Burger from "../Burger/Burger"
 
-function Header({loggedIn, isBurgerOpened, onBurger}) {
+const Header = ({loggedIn, isBurgerOpened, onBurger}) => {
 
   const location = useLocation();
 

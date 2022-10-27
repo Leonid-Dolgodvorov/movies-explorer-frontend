@@ -1,8 +1,10 @@
+import { MY_BASE_URL } from "../utils/constants";
+
 const errorHandler = (err) => {
   if (err === "Ошибка: 400") {
     return "Переданы некорректные данные";
   } else if (err === "Ошибка: 401") {
-    return "Неправильные почта или пароль";
+    return `Ошибка авторизации на ${MY_BASE_URL}`;
   } else if (err === "Ошибка: 404") {
     return "Страница не найдена"; 
   } else if (err === "Ошибка: 409") {
