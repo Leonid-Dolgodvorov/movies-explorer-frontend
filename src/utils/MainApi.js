@@ -1,3 +1,5 @@
+import { IMAGE_BASE_URL, MY_BASE_URL } from "../utils/constants";
+
 class MainApi {
   constructor( { url, headers } ) {
     this._url = url;
@@ -51,8 +53,8 @@ class MainApi {
         description,
         trailerLink,
         movieId,
-        image: `https://api.nomoreparties.co${url}`,
-        thumbnail: `https://api.nomoreparties.co${url}`,
+        image: `${IMAGE_BASE_URL}${url}`,
+        thumbnail: `${IMAGE_BASE_URL}${url}`,
       })
     })
     .then(res => this.returnResJson(res))
@@ -71,7 +73,7 @@ const jwt = localStorage.getItem("jwt");
 
 const mainApi = new MainApi({
 //  url: "https://api.dolgodvorovl.nomoredomains.icu/",
-  url: "http://localhost:3000/",
+  url: MY_BASE_URL,
   headers: {
     "Content-Type": "application/json",
     'Authorization': `Bearer ${jwt}`,

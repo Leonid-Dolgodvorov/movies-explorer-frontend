@@ -4,6 +4,7 @@ import Header from "../Header/Header";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
+import { DURATION_SHORT_MOVIE, WIDTH_DESKTOP, WIDTH_MOBILE, MOVIES_LIMIT } from "../../utils/constants";
 
 const Movies = ({
   loggedIn,
@@ -42,20 +43,20 @@ const Movies = ({
   }, [allMovies, sliceQuantity]);
 
   React.useEffect(() => {
-    if (window.innerWidth >= 1280) {
-      setSliceQuantity(8);
-    } else if (window.innerWidth > 480 && window.innerWidth < 1280) {
-      setSliceQuantity(5);
-    } else if (window.innerWidth <= 480) {
-      setSliceQuantity(2);
+    if (window.innerWidth >= WIDTH_DESKTOP) {
+      setSliceQuantity(MOVIES_LIMIT.DESKTOP.COUNT);
+    } else if (window.innerWidth > WIDTH_MOBILE && window.innerWidth < WIDTH_DESKTOP) {
+      setSliceQuantity(MOVIES_LIMIT.MIDDLE.COUNT);
+    } else if (window.innerWidth <= WIDTH_MOBILE) {
+      setSliceQuantity(MOVIES_LIMIT.MOBILE.COUNT);
     }
   }, []);
 
   const onMoreFilms = () => {
-    if (window.innerWidth >= 1280) {
-      setSliceQuantity(sliceQuantity + 3);
+    if (window.innerWidth >= WIDTH_DESKTOP) {
+      setSliceQuantity(sliceQuantity + MOVIES_LIMIT.DESKTOP.MORE);
     } else {
-      setSliceQuantity(sliceQuantity + 2);
+      setSliceQuantity(sliceQuantity + MOVIES_LIMIT.MIDDLE.MORE);
     }
   };
 
@@ -63,7 +64,7 @@ const Movies = ({
     setIsShortBtnActive(!isShortBtnActive);
   };
 
-  const handleFind = (e) => {   
+  const handleSearch = (e) => {   
     e.preventDefault();
     const findMovies = (movie, keyword) => movie.nameRU.toLowerCase().includes(keyword.toLowerCase()) || movie.nameEN.toLowerCase().includes(keyword.toLowerCase());
     setSlicedMoviesArr(slicedMoviesArr.filter(movie => findMovies(movie, inputValue)));
@@ -74,7 +75,7 @@ const Movies = ({
 
   const findShortMovies = (movies) =>
     movies.filter((movie) =>
-      movie.duration < 40);
+      movie.duration < DURATION_SHORT_MOVIE);
 
   return (
     <>
@@ -88,7 +89,7 @@ const Movies = ({
           setIsShortBtnActive={setIsShortBtnActive}
           handleShortBtn={handleShortBtn}
           setInputValue={setInputValue}
-          handleFind={handleFind}
+          handleSearch={handleSearch}
           />
         {isSearchBtnHandled ?
           <>

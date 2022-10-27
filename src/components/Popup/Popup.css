@@ -80,14 +80,11 @@
   transform: rotate(-45deg);
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 500px) {
   .popup__container {
     width: 282px;
     height: 308px;
   }
-}
-
-@media screen and (max-width: 500px) {
   .popup__text {
     font-size: 20px;
     line-height: 20px;

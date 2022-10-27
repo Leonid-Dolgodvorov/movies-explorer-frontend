@@ -14,6 +14,7 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import * as auth from "../../utils/auth";
 import mainApi from "../../utils/MainApi";
 import moviesApi from "../../utils/MoviesApi";
+import errorHandler from "../../utils/errorHandler";
 
 function App() {
 
@@ -24,9 +25,9 @@ function App() {
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [isBurgerOpened, setIsBurgerOpened] = React.useState(false);
   const [isSearchBtnHandled, setIsSearchBtnHandled] = React.useState(false);
-  const [isPopupOpened, setIsPopupOpened] = React.useState(true);
+  const [isPopupOpened, setIsPopupOpened] = React.useState(false);
   const [isErrored, setIsErrored] = React.useState(false);
-  const [popupText, setPopupText] = React.useState("проверка");
+  const [errorText, setErrorText] = React.useState("");
   const history = useHistory();
 
   React.useEffect(() => {
@@ -65,18 +66,20 @@ function App() {
   const openErrorPopup = (err) => {
     setIsPopupOpened(true);
     setIsErrored(true);
-    setPopupText(err);
+    setErrorText(err);
   }
 
   const openSuccessPopup = (res) => {
     setIsPopupOpened(true);
     setIsErrored(false);
-    setPopupText(res);
+    setErrorText(res);
   }
 
   const closePopup = () => {
     setIsPopupOpened(false);
-    setPopupText('');
+    setTimeout(() => {
+      setErrorText('');
+    }, "500");
   }
 
   const handleRegistration = (name, email, password) => {
@@ -105,7 +108,7 @@ function App() {
             setCurrentUser(userInfo.data);
             openSuccessPopup("Данные успешно изменены")
         })
-        .catch((err) => openErrorPopup(err))
+        .catch((err) => openErrorPopup(errorHandler(err)))
   };
 
   const handleSignOut = () => {
@@ -162,7 +165,7 @@ function App() {
       <div className="App">
         <Popup
           isErrored={isErrored}
-          popupText={popupText}
+          errorText={errorText}
           isPopupOpened={isPopupOpened}
           setIsPopupOpened={setIsPopupOpened}
           closePopup={closePopup}
