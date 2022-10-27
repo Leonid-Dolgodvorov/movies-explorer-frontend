@@ -5,7 +5,7 @@ import MoviesCard from "../MoviesCard/MoviesCard";
 const MoviesCardList = ({slicedMoviesArr, savedMovies, saveMovie, deleteMovie}) => {
 
   const isMovieSaved = (movie) => savedMovies.some(savedMovie => savedMovie.movieId === movie.id);
-
+  console.log(slicedMoviesArr)
   return (
     <section className="movies__card-list">
       <ul className="movies__cards">

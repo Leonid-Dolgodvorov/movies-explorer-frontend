@@ -59,8 +59,7 @@ const Movies = ({
 
   React.useEffect(() => {
     if (localStorage.isShortBtnActive) {
-      setIsShortBtnActive(JSON.parse(localStorage.getItem("isShortBtnActive")));
-      console.log(isShortBtnActive)
+      setIsShortBtnActive(Boolean(localStorage.getItem("isShortBtnActive")));
     };
   }, []);
 
@@ -83,8 +82,12 @@ const Movies = ({
   };
 
   const handleShortBtn = () => {
+      if (isShortBtnActive === false) {
+        localStorage.setItem("isShortBtnActive", true);
+      } else {
+        localStorage.setItem("isShortBtnActive", "");
+      }
     setIsShortBtnActive(!isShortBtnActive);
-    localStorage.setItem("isShortBtnActive", JSON.stringify(!isShortBtnActive));
   };
 
   const handleSearch = (e) => {
@@ -145,7 +148,7 @@ const Movies = ({
           <>
             <MoviesCardList
               slicedMoviesArr={isShortBtnActive ? 
-                findShortMovies(slicedMoviesArr) 
+                findShortMovies(foundMovies) 
                 :
                 slicedMoviesArr
               }
@@ -153,7 +156,7 @@ const Movies = ({
               saveMovie={saveMovie}
               deleteMovie={deleteMovie}
             />
-            { slicedMoviesArr.length < foundMovies.length ? 
+            { slicedMoviesArr.length < foundMovies.length && !isShortBtnActive ? 
               <button
                 type="button"
                 onClick={onMoreFilms}
