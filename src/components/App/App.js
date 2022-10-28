@@ -37,9 +37,7 @@ const App = () => {
           setLoggedIn(true);
           setCurrentUser(userInfo);
         })
-        .catch((err) => {
-          console.log(err)
-        })
+        .catch((err) => openErrorPopup(errorHandler(err)))
     } else {
       handleSignOut()
     }
@@ -99,6 +97,7 @@ const App = () => {
     setIsSearchBtnHandled(false);
     localStorage.removeItem("jwt");
     localStorage.removeItem("foundMovies");
+    localStorage.removeItem("foundSavedMovies");
     localStorage.removeItem("isSearchBtnHandled");
     localStorage.removeItem("searchQuery");
     localStorage.removeItem("isShortBtnActive");
@@ -123,14 +122,20 @@ const App = () => {
       movieId: movie.id.toString(),      
      })
       .then(() => mainApi.getUserMovies())
-      .then((savedMoviesList) => setSavedMovies(savedMoviesList.data))
+      .then((savedMoviesList) => {
+        setSavedMovies(savedMoviesList.data);
+        localStorage.setItem("savedMovies", JSON.stringify(savedMoviesList.data));
+      })
       .catch((err) => openErrorPopup(errorHandler(err)))
   };
 
   const deleteMovie = (movieId) => {
     mainApi.deleteCard(movieId)
       .then(() => mainApi.getUserMovies())
-      .then((savedMoviesList) => setSavedMovies(savedMoviesList.data))
+      .then((savedMoviesList) => {
+        setSavedMovies(savedMoviesList.data);
+        localStorage.setItem("savedMovies", JSON.stringify(savedMoviesList.data));
+      })
       .catch((err) => openErrorPopup(errorHandler(err)))
   }
 
@@ -176,10 +181,17 @@ const App = () => {
             loggedIn={loggedIn}
             isBurgerOpened={isBurgerOpened}
             onBurger={handleBurger}
-            savedMovies={savedMovies}
             isLoading={isLoading}
             setIsLoading={setIsLoading}
-            component={SavedMovies}/>
+            isSearchBtnHandled={isSearchBtnHandled}
+            setIsSearchBtnHandled={setIsSearchBtnHandled}
+            savedMovies={savedMovies}
+            saveMovie={saveMovie}
+            deleteMovie={deleteMovie}
+            openErrorPopup={openErrorPopup}
+            setSavedMovies={setSavedMovies}
+            component={SavedMovies}
+            errorHandler={errorHandler}/>
           <ProtectedRoute
             path="/profile"
             loggedIn={loggedIn}

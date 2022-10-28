@@ -6,6 +6,14 @@
   margin: 10px 70px 0;
 }
 
+.movies__not-found-text {
+  margin: 0 auto;
+  padding: 0;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 18px;
+}
+
 .movies__cards {
   width: 100%;
   display: grid;

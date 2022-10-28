@@ -19,12 +19,11 @@ const Profile = ({loggedIn, currentUser, onUpdateUserInfo, onSignOut}) => {
     setUser(currentUser);
   }, [currentUser]);
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (values.profile_name !== user.name || values.profile_email !== user.email) {
-      onUpdateUserInfo(values.profile_name, values.profile_email);
       resetForm()
+      onUpdateUserInfo(values.profile_name, values.profile_email);      
     }
   }
 
@@ -45,7 +44,7 @@ const Profile = ({loggedIn, currentUser, onUpdateUserInfo, onSignOut}) => {
                 minLength="2"
                 maxLength="30"
                 onChange={handleChange}
-                value={values.profile_name || ""}
+                value={values.profile_name}
                 required/>
             <span className="profile__input-error">{errors.profile_name}</span>
             </label>
@@ -59,7 +58,7 @@ const Profile = ({loggedIn, currentUser, onUpdateUserInfo, onSignOut}) => {
                 autoComplete="off"
                 pattern="[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}"
                 onChange={handleChange}
-                value={values.profile_email || ""}
+                value={values.profile_email}
                 required/>
             <span className="profile__input-error">{errors.profile_email}</span>
             </label>

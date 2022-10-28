@@ -16,16 +16,13 @@ const MoviesCard = ({
     deleteMovie(movieToDelete._id);
   };
 
+  const onDeleteSavedMovie = () => {
+    console.log(movie)
+    deleteMovie(movie._id);
+  };
+
   const onSaveMovie = () => {
     saveMovie(movie);
-  }
-
-  const onDeleteOrSaveMovie = () => {
-    if (isSaved) {
-      onDeleteMovie()
-    } else {
-      onSaveMovie();
-    }
   }
 
   return (
@@ -52,14 +49,12 @@ const MoviesCard = ({
             className={isSaved ? 
               "movies__button movies__saved-btn" 
               : "movies__button movies__save-btn"}
-            onClick={onDeleteOrSaveMovie}/>
+            onClick={isSaved ? onDeleteMovie : onSaveMovie}/>
           :
           <button
             type="button"
-            className={isSaved ? 
-              "movies__button delete-btn" 
-              : ""}
-            onClick={onDeleteOrSaveMovie}/>
+            className="movies__button movies__delete-btn" 
+            onClick={onDeleteSavedMovie}/>
         }
       </>
     </li>

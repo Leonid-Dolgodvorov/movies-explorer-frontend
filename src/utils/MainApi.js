@@ -1,9 +1,8 @@
 import { IMAGE_BASE_URL, MY_BASE_URL } from "../utils/constants";
 
 class MainApi {
-  constructor( { url, headers } ) {
+  constructor( { url } ) {
     this._url = url;
-    this._headers = headers;
   }
 
   returnResJson(res) {
@@ -14,23 +13,35 @@ class MainApi {
   }
 
   getUserMovies() {
+    const jwt = localStorage.getItem("jwt");
     return fetch(`${this._url}movies`, {
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${jwt}`,
+      },
     })
     .then(res => this.returnResJson(res))
   }
 
   getUserInfo() {
+    const jwt = localStorage.getItem("jwt");
     return fetch(`${this._url}users/me`, {
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${jwt}`,
+      },
     })
     .then(res => this.returnResJson(res))
   }
 
   editUserInfo(name, email) {
+    const jwt = localStorage.getItem("jwt");
     return fetch(`${this._url}users/me`, {
       method: 'PATCH',
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${jwt}`,
+      },
       body: JSON.stringify({
         name: name,
         email: email,
@@ -40,9 +51,13 @@ class MainApi {
   }
 
   addCard({nameRU, nameEN, director, country, year, duration, description, trailerLink, url, movieId}) {
+    const jwt = localStorage.getItem("jwt");
     return fetch(`${this._url}movies`, {
       method: 'POST',
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${jwt}`,
+      },
       body: JSON.stringify({
         nameRU,
         nameEN,
@@ -61,23 +76,20 @@ class MainApi {
   }
 
   deleteCard(movieId) {
+    const jwt = localStorage.getItem("jwt");
     return fetch(`${this._url}movies/${movieId}`, {
       method: 'DELETE',
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${jwt}`,
+      },
     })
     .then(res => this.returnResJson(res))
   }
 };
 
-const jwt = localStorage.getItem("jwt");
-
 const mainApi = new MainApi({
-//  url: "https://api.dolgodvorovl.nomoredomains.icu/",
   url: MY_BASE_URL,
-  headers: {
-    "Content-Type": "application/json",
-    'Authorization': `Bearer ${jwt}`,
-  },
 });
 
 export default mainApi;
