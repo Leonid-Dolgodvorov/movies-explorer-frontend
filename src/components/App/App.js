@@ -13,7 +13,6 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import * as auth from "../../utils/auth";
 import mainApi from "../../utils/MainApi";
-/* import moviesApi from "../../utils/MoviesApi"; */
 import errorHandler from "../../utils/errorHandler";
 
 const App = () => {
@@ -24,6 +23,7 @@ const App = () => {
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [isBurgerOpened, setIsBurgerOpened] = React.useState(false);
   const [isSearchBtnHandled, setIsSearchBtnHandled] = React.useState(false);
+  const [isSearchSavedBtnHandled, setIsSearchSavedBtnHandled] = React.useState(false);
   const [isPopupOpened, setIsPopupOpened] = React.useState(false);
   const [isErrored, setIsErrored] = React.useState(false);
   const [errorText, setErrorText] = React.useState("");
@@ -97,8 +97,8 @@ const App = () => {
     setIsSearchBtnHandled(false);
     localStorage.removeItem("jwt");
     localStorage.removeItem("foundMovies");
-    localStorage.removeItem("foundSavedMovies");
     localStorage.removeItem("isSearchBtnHandled");
+    localStorage.removeItem("isSearchSavedBtnHandled");
     localStorage.removeItem("searchQuery");
     localStorage.removeItem("isShortBtnActive");
     history.push("/");
@@ -124,7 +124,6 @@ const App = () => {
       .then(() => mainApi.getUserMovies())
       .then((savedMoviesList) => {
         setSavedMovies(savedMoviesList.data);
-        localStorage.setItem("savedMovies", JSON.stringify(savedMoviesList.data));
       })
       .catch((err) => openErrorPopup(errorHandler(err)))
   };
@@ -134,7 +133,6 @@ const App = () => {
       .then(() => mainApi.getUserMovies())
       .then((savedMoviesList) => {
         setSavedMovies(savedMoviesList.data);
-        localStorage.setItem("savedMovies", JSON.stringify(savedMoviesList.data));
       })
       .catch((err) => openErrorPopup(errorHandler(err)))
   }
@@ -170,10 +168,10 @@ const App = () => {
             isSearchBtnHandled={isSearchBtnHandled}
             setIsSearchBtnHandled={setIsSearchBtnHandled}
             savedMovies={savedMovies}
+            setSavedMovies={setSavedMovies}
             saveMovie={saveMovie}
             deleteMovie={deleteMovie}
             openErrorPopup={openErrorPopup}
-            setSavedMovies={setSavedMovies}
             component={Movies}
             errorHandler={errorHandler}/>
           <ProtectedRoute
@@ -184,12 +182,13 @@ const App = () => {
             isLoading={isLoading}
             setIsLoading={setIsLoading}
             isSearchBtnHandled={isSearchBtnHandled}
-            setIsSearchBtnHandled={setIsSearchBtnHandled}
+            isSearchSavedBtnHandled={isSearchSavedBtnHandled}
+            setIsSearchSavedBtnHandled={setIsSearchSavedBtnHandled}
             savedMovies={savedMovies}
+            setSavedMovies={setSavedMovies}
             saveMovie={saveMovie}
             deleteMovie={deleteMovie}
-            openErrorPopup={openErrorPopup}
-            setSavedMovies={setSavedMovies}
+            openErrorPopup={openErrorPopup}            
             component={SavedMovies}
             errorHandler={errorHandler}/>
           <ProtectedRoute

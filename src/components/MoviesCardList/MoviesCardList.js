@@ -8,16 +8,15 @@ const MoviesCardList = ({
   savedMovies,
   saveMovie,
   deleteMovie,
-  isSearchBtnHandled}) => {
+  isSearchBtnHandled,
+}) => {
 
   const location = useLocation();
 
   const isMovieSaved = (movie) => savedMovies.some(savedMovie => savedMovie.movieId === movie.id);
   return (
     <section className="movies__card-list">
-      
-      {isSearchBtnHandled && slicedMoviesArr.length ?
-        <ul className="movies__cards">
+<ul className="movies__cards">
           {slicedMoviesArr.map((movie) => {
               return (
               <MoviesCard
@@ -29,9 +28,6 @@ const MoviesCardList = ({
                 movie={movie}/>)}
           )}
       </ul>
-      :
-      <p className="movies__not-found-text">Ничего не найдено</p>
-      }
     </section>
   );
 };

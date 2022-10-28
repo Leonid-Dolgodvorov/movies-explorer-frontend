@@ -20,10 +20,12 @@ const SavedMovies = ({
   isLoading,
   setIsLoading,
   savedMovies,
+  setSavedMovies,
   saveMovie,
   deleteMovie,
   isSearchBtnHandled,
-  setIsSearchBtnHandled,
+  isSearchSavedBtnHandled,
+  setIsSearchSavedBtnHandled,
   openErrorPopup,
   errorHandler}) => {
 
@@ -35,18 +37,21 @@ const SavedMovies = ({
 
   React.useEffect(() => {
     setSlicedMoviesArr(foundSavedMovies.slice(0, sliceQuantity))
+    console.log(foundSavedMovies)
+    console.log(sliceQuantity)
+    console.log(isSearchSavedBtnHandled)
   }, [foundSavedMovies, sliceQuantity]);
 
   React.useEffect(() => {
-    if (localStorage.getItem("foundSavedMovies")) {
-      setFoundSavedMovies(JSON.parse(localStorage.getItem("foundSavedMovies")));
-    } 
-  }, []);
-
-  React.useEffect(() => {
-    if (localStorage.isSearchBtnHandled) {
-      setIsSearchBtnHandled(JSON.parse(localStorage.getItem("isSearchBtnHandled")));
-    };
+      setIsLoading(true);
+      setIsSearchSavedBtnHandled(localStorage.getItem("isSearchSavedBtnHandled"));
+      Promise.all([mainApi.getUserMovies()])
+        .then(([savedMoviesList]) => {
+          setSavedMovies(savedMoviesList.data);
+          setFoundSavedMovies(searchMovies(savedMoviesList.data, searchQuery));
+        })
+        .catch((err) => openErrorPopup(errorHandler(err)))
+        .finally(() => setIsLoading(false))
   }, []);
 
   React.useEffect(() => {
@@ -82,25 +87,34 @@ const SavedMovies = ({
 
   const handleSearch = (e) => {
     e.preventDefault();
-    setIsSearchBtnHandled(false);
     setIsLoading(true);
     Promise.all([mainApi.getUserMovies()])
       .then(([savedMoviesList]) => {
-        setIsSearchBtnHandled(true);
-        console.log(savedMoviesList.data)
-        setFoundSavedMovies(searchMovies(savedMoviesList.data, searchQuery));
-        localStorage.setItem("foundSavedMovies", 
-          JSON.stringify(searchMovies(savedMoviesList.data, searchQuery)));
-        localStorage.setItem("isSearchBtnHandled", true);
+        setFoundSavedMovies(searchMovies(savedMoviesList.data, searchQuery));        
         localStorage.setItem("searchQuery", searchQuery);
       })
       .catch((err) => openErrorPopup(errorHandler(err)))
-      .finally(() => setIsLoading(false));
+      .finally(() => {
+        setIsLoading(false);
+        setIsSearchSavedBtnHandled(true);
+        localStorage.setItem("isSearchSavedBtnHandled", true);
+      });
   };
 
   const findShortMovies = (movies) =>
     movies.filter((movie) =>
       movie.duration < DURATION_SHORT_MOVIE);
+
+  const deleteSavedMovie = (movieId) => {
+    mainApi.deleteCard(movieId)
+      .then(() => mainApi.getUserMovies())
+      .then((savedMoviesList) => {
+        setSavedMovies(savedMoviesList.data);
+        setFoundSavedMovies(searchMovies(savedMoviesList.data, searchQuery));
+      })
+      .catch((err) => openErrorPopup(errorHandler(err)))
+      .finally(() => setIsLoading(false))
+  };
 
   return (
     <>
@@ -118,17 +132,17 @@ const SavedMovies = ({
           handleSearch={handleSearch}
           />
         <Preloader isLoading={isLoading}/>
-        {isSearchBtnHandled ?
+        {isSearchSavedBtnHandled ?
           <>
             <MoviesCardList
               slicedMoviesArr={isShortBtnActive ? 
-                findShortMovies(foundSavedMovies) 
+                findShortMovies(foundSavedMovies)
                 :
                 slicedMoviesArr
               }
               savedMovies={savedMovies}
               saveMovie={saveMovie}
-              deleteMovie={deleteMovie}
+              deleteMovie={deleteSavedMovie}
               isSearchBtnHandled={isSearchBtnHandled}
             />
           </>

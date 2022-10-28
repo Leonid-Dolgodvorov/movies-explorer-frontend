@@ -17,7 +17,6 @@ const MoviesCard = ({
   };
 
   const onDeleteSavedMovie = () => {
-    console.log(movie)
     deleteMovie(movie._id);
   };
 
