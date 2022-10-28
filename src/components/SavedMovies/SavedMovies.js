@@ -21,8 +21,6 @@ const SavedMovies = ({
   setIsLoading,
   savedMovies,
   setSavedMovies,
-  saveMovie,
-  deleteMovie,
   isSearchBtnHandled,
   isSearchSavedBtnHandled,
   setIsSearchSavedBtnHandled,
@@ -141,9 +139,8 @@ const SavedMovies = ({
                 slicedMoviesArr
               }
               savedMovies={savedMovies}
-              saveMovie={saveMovie}
               deleteMovie={deleteSavedMovie}
-              isSearchBtnHandled={isSearchBtnHandled}
+              isSearchSavedBtnHandled={isSearchSavedBtnHandled}
             />
           </>
             : 
