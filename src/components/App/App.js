@@ -165,15 +165,15 @@ const App = () => {
             onBurger={handleBurger}
             isLoading={isLoading}
             setIsLoading={setIsLoading}
-            isSearchBtnHandled={isSearchBtnHandled}
-            setIsSearchBtnHandled={setIsSearchBtnHandled}
             savedMovies={savedMovies}
             setSavedMovies={setSavedMovies}
             saveMovie={saveMovie}
             deleteMovie={deleteMovie}
+            isSearchBtnHandled={isSearchBtnHandled}
+            setIsSearchBtnHandled={setIsSearchBtnHandled}
             openErrorPopup={openErrorPopup}
-            component={Movies}
-            errorHandler={errorHandler}/>
+            errorHandler={errorHandler}
+            component={Movies}/>
           <ProtectedRoute
             path="/saved-movies"
             loggedIn={loggedIn}
@@ -181,16 +181,13 @@ const App = () => {
             onBurger={handleBurger}
             isLoading={isLoading}
             setIsLoading={setIsLoading}
-            isSearchBtnHandled={isSearchBtnHandled}
             isSearchSavedBtnHandled={isSearchSavedBtnHandled}
             setIsSearchSavedBtnHandled={setIsSearchSavedBtnHandled}
             savedMovies={savedMovies}
             setSavedMovies={setSavedMovies}
-            saveMovie={saveMovie}
-            deleteMovie={deleteMovie}
             openErrorPopup={openErrorPopup}            
-            component={SavedMovies}
-            errorHandler={errorHandler}/>
+            errorHandler={errorHandler}
+            component={SavedMovies}/>
           <ProtectedRoute
             path="/profile"
             loggedIn={loggedIn}

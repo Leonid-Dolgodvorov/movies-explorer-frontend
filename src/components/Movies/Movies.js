@@ -46,14 +46,6 @@ const Movies = ({
   }, []);
 
   React.useEffect(() => {
-    setIsLoading(true);
-    Promise.all([mainApi.getUserMovies()])
-        .then(([savedMoviesList]) => setSavedMovies(savedMoviesList.data))
-        .catch((err) => openErrorPopup(errorHandler(err)))
-        .finally(() => setIsLoading(false))
-  }, []);
-
-  React.useEffect(() => {
     if (localStorage.isSearchBtnHandled) {
       setIsSearchBtnHandled(JSON.parse(localStorage.getItem("isSearchBtnHandled")));
     };
@@ -69,6 +61,14 @@ const Movies = ({
     if (localStorage.isShortBtnActive) {
       setIsShortBtnActive(Boolean(localStorage.getItem("isShortBtnActive")));
     };
+  }, []);
+
+  React.useEffect(() => {
+    setIsLoading(true);
+    Promise.all([mainApi.getUserMovies()])
+        .then(([savedMoviesList]) => setSavedMovies(savedMoviesList.data))
+        .catch((err) => openErrorPopup(errorHandler(err)))
+        .finally(() => setIsLoading(false))
   }, []);
 
   React.useEffect(() => {

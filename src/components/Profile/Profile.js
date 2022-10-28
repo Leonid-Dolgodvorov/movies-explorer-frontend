@@ -3,7 +3,11 @@ import Header from "../Header/Header";
 import useFormWithValidation from "../../utils/useFormWithValidation";
 import "./Profile.css";
 
-const Profile = ({loggedIn, currentUser, onUpdateUserInfo, onSignOut}) => {
+const Profile = ({
+  loggedIn,
+  currentUser,
+  onUpdateUserInfo,
+  onSignOut}) => {
 
   const [user, setUser] = React.useState({});
 

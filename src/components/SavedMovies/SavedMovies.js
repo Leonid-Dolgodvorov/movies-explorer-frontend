@@ -19,11 +19,10 @@ const SavedMovies = ({
   onBurger,
   isLoading,
   setIsLoading,
-  savedMovies,
-  setSavedMovies,
-  isSearchBtnHandled,
   isSearchSavedBtnHandled,
   setIsSearchSavedBtnHandled,
+  savedMovies,
+  setSavedMovies,
   openErrorPopup,
   errorHandler}) => {
 

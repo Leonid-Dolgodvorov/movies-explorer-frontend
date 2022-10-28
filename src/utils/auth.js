@@ -1,5 +1,4 @@
-const BASE_URL = "http://localhost:3000";
-/* const BASE_URL = "https://api.dolgodvorovl.nomoredomains.icu"; */
+import { MY_BASE_URL } from "../utils/constants";
 
 function returnResJson(res) {
   if (res.ok) {
@@ -9,7 +8,7 @@ function returnResJson(res) {
 }
 
 export const register = (name, email, password) => {
-  return fetch(`${BASE_URL}/signup`, {
+  return fetch(`${MY_BASE_URL}signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -24,7 +23,7 @@ export const register = (name, email, password) => {
 };
 
 export const authorize = (email, password) => {
-  return fetch(`${BASE_URL}/signin`, {
+  return fetch(`${MY_BASE_URL}signin`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -46,7 +45,7 @@ export const authorize = (email, password) => {
 };
 
 export const getData = (token) => {
-  return fetch(`${BASE_URL}/users/me`, {
+  return fetch(`${MY_BASE_URL}users/me`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

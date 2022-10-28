@@ -1,5 +1,5 @@
-/* export const MY_BASE_URL = "https://api.dolgodvorovl.nomoredomains.icu/"; */
-export const MY_BASE_URL = "http://localhost:3000/";
+export const MY_BASE_URL = "https://api.dolgodvorovl.nomoredomains.icu/";
+// export const MY_BASE_URL = "http://localhost:3000/";
 export const BEATFILM_BASE_URL = "https://api.nomoreparties.co/beatfilm-movies";
 export const IMAGE_BASE_URL = "https://api.nomoreparties.co";
 export const DURATION_SHORT_MOVIE = 40;

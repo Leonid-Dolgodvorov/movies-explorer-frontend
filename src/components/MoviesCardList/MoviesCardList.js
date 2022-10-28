@@ -14,9 +14,6 @@ const MoviesCardList = ({
 
   const location = useLocation();
 
-  console.log(isSearchSavedBtnHandled)
-  console.log(slicedMoviesArr.length)
-
   const isMovieSaved = (movie) => savedMovies.some(savedMovie => savedMovie.movieId === movie.id);
   return (
     <section className="movies__card-list">
