@@ -33,7 +33,7 @@ const MoviesCardList = ({
               )}
             </ul>
           :
-            <p className="movies__not-found-text">Ничего не найдено movies</p>
+            <p className="movies__not-found-text">Ничего не найдено</p>
           }
         </>
       :

@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route, useHistory } from "react-router-dom";
+import { Switch, Route, Redirect, useHistory } from "react-router-dom";
 import "./App.css";
 import Popup from "../Popup/Popup";
 import Main from "../Main/Main";
@@ -37,7 +37,15 @@ const App = () => {
           setLoggedIn(true);
           setCurrentUser(userInfo);
         })
-        .catch((err) => openErrorPopup(errorHandler(err)))
+        .catch((err) => {
+          openErrorPopup(errorHandler(err))
+          localStorage.removeItem("jwt");
+          localStorage.removeItem("foundMovies");
+          localStorage.removeItem("isSearchBtnHandled");
+          localStorage.removeItem("isSearchSavedBtnHandled");
+          localStorage.removeItem("searchQuery");
+          localStorage.removeItem("isShortBtnActive");
+        })
     } else {
       handleSignOut()
     }
@@ -139,7 +147,7 @@ const App = () => {
   }
 
   const handleReturn = () => {
-    history.goBack();
+      history.goBack();
   };
   
   return (
@@ -199,14 +207,19 @@ const App = () => {
             onSignOut={handleSignOut}
             component={Profile}/>
           <Route path="/signin">
-            <Login onLogin={handleAuthorization}/>
+            {!loggedIn ? <Login onLogin={handleAuthorization}/> 
+            : <Redirect to="/movies"/>}            
           </Route>
           <Route path="/signup">
-            <Register onRegister={handleRegistration}/>
+            {!loggedIn ? <Register onRegister={handleRegistration}/>
+            : <Redirect to="/movies"/>}  
           </Route>
-          <Route path="*">
+          <Route path="/404">
             <NotFound
               handleReturn={handleReturn}/>
+          </Route>
+          <Route path="*">
+            <Redirect to="/404"/>
           </Route>
         </Switch>
       </div>

@@ -23,7 +23,7 @@ const Profile = ({
 
   React.useEffect(() => {
     values.profile_name = user.name;
-    values.profile_email = user.email
+    values.profile_email = user.email;
   }, [user]);
 
   React.useEffect(() => {
