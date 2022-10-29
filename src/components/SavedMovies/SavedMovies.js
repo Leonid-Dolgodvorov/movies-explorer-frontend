@@ -34,9 +34,6 @@ const SavedMovies = ({
 
   React.useEffect(() => {
     setSlicedMoviesArr(foundSavedMovies.slice(0, sliceQuantity))
-    console.log(foundSavedMovies)
-    console.log(sliceQuantity)
-    console.log(isSearchSavedBtnHandled)
   }, [foundSavedMovies, sliceQuantity]);
 
   React.useEffect(() => {
