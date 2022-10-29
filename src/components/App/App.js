@@ -38,18 +38,22 @@ const App = () => {
           setCurrentUser(userInfo);
         })
         .catch((err) => {
-          openErrorPopup(errorHandler(err))
-          localStorage.removeItem("jwt");
-          localStorage.removeItem("foundMovies");
-          localStorage.removeItem("isSearchBtnHandled");
-          localStorage.removeItem("isSearchSavedBtnHandled");
-          localStorage.removeItem("searchQuery");
-          localStorage.removeItem("isShortBtnActive");
+          openErrorPopup(errorHandler(err));
+          removeLocalStorageItems();
         })
     } else {
       handleSignOut()
     }
   }, []);
+
+  const removeLocalStorageItems = () => {
+    localStorage.removeItem("jwt");
+    localStorage.removeItem("foundMovies");
+    localStorage.removeItem("isSearchBtnHandled");
+    localStorage.removeItem("isSearchSavedBtnHandled");
+    localStorage.removeItem("searchQuery");
+    localStorage.removeItem("isShortBtnActive");
+  }
 
   const openErrorPopup = (err) => {
     setIsPopupOpened(true);
@@ -103,12 +107,7 @@ const App = () => {
     setLoggedIn(false);
     setIsBurgerOpened(false);
     setIsSearchBtnHandled(false);
-    localStorage.removeItem("jwt");
-    localStorage.removeItem("foundMovies");
-    localStorage.removeItem("isSearchBtnHandled");
-    localStorage.removeItem("isSearchSavedBtnHandled");
-    localStorage.removeItem("searchQuery");
-    localStorage.removeItem("isShortBtnActive");
+    removeLocalStorageItems();
     history.push("/");
   };
 

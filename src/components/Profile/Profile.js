@@ -1,17 +1,19 @@
 import React from "react";
 import Header from "../Header/Header";
 import useFormWithValidation from "../../utils/useFormWithValidation";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 import "./Profile.css";
 
 const Profile = ({
   loggedIn,
   isBurgerOpened,
   onBurger,
-  currentUser,
   onUpdateUserInfo,
   onSignOut}) => {
 
   const [user, setUser] = React.useState({});
+
+  const currentUser = React.useContext(CurrentUserContext);
 
   const {
     values,
