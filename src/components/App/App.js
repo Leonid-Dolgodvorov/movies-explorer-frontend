@@ -110,8 +110,8 @@ const App = () => {
 
   const saveMovie = (movie) => {
     mainApi.addCard({
-      nameRU: movie.nameRU.substring(0, 29),
-      nameEN: movie.nameEN.substring(0, 29),
+      nameRU: movie.nameRU,
+      nameEN: movie.nameEN,
       director: movie.director.substring(0, 29),
       country: movie.country.substring(0, 29),
       year: movie.year,
@@ -119,6 +119,7 @@ const App = () => {
       description: movie.description.substring(0, 199),
       trailerLink: movie.trailerLink,
       url: movie.image.url,
+      thumbnail: movie.image.formats.thumbnail.url,
       movieId: movie.id.toString(),      
      })
       .then(() => mainApi.getUserMovies())
