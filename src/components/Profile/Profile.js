@@ -5,6 +5,8 @@ import "./Profile.css";
 
 const Profile = ({
   loggedIn,
+  isBurgerOpened,
+  onBurger,
   currentUser,
   onUpdateUserInfo,
   onSignOut}) => {
@@ -20,6 +22,11 @@ const Profile = ({
   } = useFormWithValidation();
 
   React.useEffect(() => {
+    values.profile_name = user.name;
+    values.profile_email = user.email
+  }, [user]);
+
+  React.useEffect(() => {
     setUser(currentUser);
   }, [currentUser]);
 
@@ -33,7 +40,11 @@ const Profile = ({
 
   return (
     <>
-      <Header loggedIn={loggedIn}/>
+      <Header 
+        loggedIn={loggedIn}
+        isBurgerOpened={isBurgerOpened}
+        onBurger={onBurger}
+        />
       <section className="profile">
         <h1 className="profile__title">Привет, {user.name}!</h1>
         <form className="profile__form" onSubmit={handleSubmit}>
@@ -48,7 +59,7 @@ const Profile = ({
                 minLength="2"
                 maxLength="30"
                 onChange={handleChange}
-                value={values.profile_name || user.name || ""}
+                value={values.profile_name || ""}
                 required/>
             <span className="profile__input-error">{errors.profile_name}</span>
             </label>
@@ -62,7 +73,7 @@ const Profile = ({
                 autoComplete="off"
                 pattern="[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}"
                 onChange={handleChange}
-                value={values.profile_email || user.email || ""}
+                value={values.profile_email || ""}
                 required/>
             <span className="profile__input-error">{errors.profile_email}</span>
             </label>

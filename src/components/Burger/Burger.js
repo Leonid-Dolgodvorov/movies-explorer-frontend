@@ -12,7 +12,7 @@ const Burger = ({onClose}) => {
           onClick={onClose}/>
         <div className="burger__wrapper">
           <div className="burger__links">
-            <Link exact to="/" className="burger__link">Главная</Link>
+            <Link to="/" className="burger__link">Главная</Link>
             <Link to="/movies" className="burger__link burger__link_active">Фильмы</Link>
             <Link to="/saved-movies" className="burger__link">Сохранённые фильмы</Link>
           </div>

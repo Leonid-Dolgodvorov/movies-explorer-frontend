@@ -192,6 +192,8 @@ const App = () => {
           <ProtectedRoute
             path="/profile"
             loggedIn={loggedIn}
+            isBurgerOpened={isBurgerOpened}
+            onBurger={handleBurger}
             currentUser={currentUser}
             onUpdateUserInfo={handleUpdateUserInfo}
             onSignOut={handleSignOut}
