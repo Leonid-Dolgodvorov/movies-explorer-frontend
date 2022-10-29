@@ -39,10 +39,8 @@ const App = () => {
         })
         .catch((err) => {
           openErrorPopup(errorHandler(err));
-          removeLocalStorageItems();
+          handleSignOut();
         })
-    } else {
-      handleSignOut()
     }
   }, []);
 
@@ -201,7 +199,6 @@ const App = () => {
             loggedIn={loggedIn}
             isBurgerOpened={isBurgerOpened}
             onBurger={handleBurger}
-            currentUser={currentUser}
             onUpdateUserInfo={handleUpdateUserInfo}
             onSignOut={handleSignOut}
             component={Profile}/>
