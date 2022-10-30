@@ -46,6 +46,7 @@ const App = () => {
 
   const removeLocalStorageItems = () => {
     localStorage.removeItem("jwt");
+    localStorage.removeItem("movies");
     localStorage.removeItem("foundMovies");
     localStorage.removeItem("isSearchBtnHandled");
     localStorage.removeItem("isSearchSavedBtnHandled");

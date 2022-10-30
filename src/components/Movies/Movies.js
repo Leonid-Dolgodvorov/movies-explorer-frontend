@@ -32,6 +32,7 @@ const Movies = ({
   const [sliceQuantity, setSliceQuantity] = React.useState(0);
   const [isShortBtnActive, setIsShortBtnActive] = React.useState(false);
   const [searchQuery, setSearchQuery] = React.useState('');
+  const [movies, setMovies] = React.useState([]);
   const [foundMovies, setFoundMovies] = React.useState([]);
   const [slicedMoviesArr, setSlicedMoviesArr] = React.useState([]);
 
@@ -48,6 +49,12 @@ const Movies = ({
   React.useEffect(() => {
     if (localStorage.isSearchBtnHandled) {
       setIsSearchBtnHandled(JSON.parse(localStorage.getItem("isSearchBtnHandled")));
+    };
+  }, []);
+
+  React.useEffect(() => {
+    if (localStorage.getItem("movies")) {
+      setMovies(JSON.parse(localStorage.getItem("movies")));
     };
   }, []);
 
@@ -102,13 +109,13 @@ const Movies = ({
     e.preventDefault();
     setIsSearchBtnHandled(false);
     setIsLoading(true);
-    if (foundMovies.length) {
+    if (movies.length) {
       Promise.all([mainApi.getUserMovies()])
         .then(([savedMoviesList]) => {
           setIsSearchBtnHandled(true);
-          setFoundMovies(searchMovies(foundMovies, searchQuery));
+          setFoundMovies(searchMovies(movies, searchQuery));
           localStorage.setItem("foundMovies", 
-            JSON.stringify(searchMovies(foundMovies, searchQuery)));
+            JSON.stringify(searchMovies(movies, searchQuery)));
           setSavedMovies(savedMoviesList.data);
           localStorage.setItem("isSearchBtnHandled", true);
           localStorage.setItem("searchQuery", searchQuery);
@@ -119,10 +126,16 @@ const Movies = ({
       Promise.all([moviesApi.getMovies(), mainApi.getUserMovies()])
         .then(([allMoviesList, savedMoviesList]) => {
           setIsSearchBtnHandled(true);
+
+          localStorage.setItem("movies", 
+            JSON.stringify(allMoviesList));
+
           setFoundMovies(searchMovies(allMoviesList, searchQuery));
           localStorage.setItem("foundMovies", 
             JSON.stringify(searchMovies(allMoviesList, searchQuery)));
-          setSavedMovies(savedMoviesList.data)
+
+          setSavedMovies(savedMoviesList.data);
+
           localStorage.setItem("isSearchBtnHandled", true);
           localStorage.setItem("searchQuery", searchQuery);
         })
