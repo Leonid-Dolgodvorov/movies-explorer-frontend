@@ -24,20 +24,15 @@ const Profile = ({
   } = useFormWithValidation();
 
   React.useEffect(() => {
-    values.profile_name = user.name;
-    values.profile_email = user.email;
-  }, [user]);
-
-  React.useEffect(() => {
     setUser(currentUser);
+    values.profile_name = currentUser.name;
+    values.profile_email = currentUser.email;
   }, [currentUser]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (values.profile_name !== user.name || values.profile_email !== user.email) {
-      resetForm()
-      onUpdateUserInfo(values.profile_name, values.profile_email);      
-    }
+    resetForm()
+    onUpdateUserInfo(values.profile_name, values.profile_email);      
   }
 
   return (
@@ -83,7 +78,11 @@ const Profile = ({
             <button
               type="submit"
               disabled={!isValid}
-              className={`profile__button ${!isValid && "profile__button_disabled"}`}
+              className={`profile__button 
+                ${!isValid && "profile__button_disabled"}
+                ${values.profile_name === currentUser.name && 
+                values.profile_email === currentUser.email && 
+                "profile__button_disabled"}`}
             > Редактировать
             </button>
           </fieldset>
