@@ -17,6 +17,7 @@ const Burger = ({onClose}) => {
           <div className="burger__links">
             <Link
               to="/"
+              onClick={onClose}
               className={`burger__link ${location.pathname === "/" ?
               "burger__link_active"
               : ""}
@@ -26,6 +27,7 @@ const Burger = ({onClose}) => {
             </Link>
             <Link
               to="/movies"
+              onClick={onClose}
               className={`burger__link ${location.pathname === "/movies" ?
               "burger__link_active"
               : ""}
@@ -35,6 +37,7 @@ const Burger = ({onClose}) => {
             </Link>
             <Link
               to="/saved-movies"
+              onClick={onClose}
               className={`burger__link ${location.pathname === "/saved-movies" ?
               "burger__link_active"
               : ""}
@@ -45,6 +48,7 @@ const Burger = ({onClose}) => {
           </div>
           <Link
             to="/profile"
+            onClick={onClose}
             className="burger__account-button"
           >
             Аккаунт
