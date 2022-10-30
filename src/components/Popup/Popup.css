@@ -33,6 +33,7 @@
 }
 
 .popup__image {
+  margin-top: 10px;
   width: 120px;
   height: 120px;
   background: none;
@@ -45,6 +46,8 @@
   font-size: 24px;
   line-height: 29px;
   max-width: 280px;
+  overflow: hidden;
+  word-wrap: break-word;
 }
 
 .popup__close-button {
