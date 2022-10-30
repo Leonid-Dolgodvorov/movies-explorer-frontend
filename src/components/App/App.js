@@ -23,7 +23,6 @@ const App = () => {
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [isBurgerOpened, setIsBurgerOpened] = React.useState(false);
   const [isSearchBtnHandled, setIsSearchBtnHandled] = React.useState(false);
-  const [isSearchSavedBtnHandled, setIsSearchSavedBtnHandled] = React.useState(false);
   const [isPopupOpened, setIsPopupOpened] = React.useState(false);
   const [isErrored, setIsErrored] = React.useState(false);
   const [errorText, setErrorText] = React.useState("");
@@ -49,7 +48,6 @@ const App = () => {
     localStorage.removeItem("movies");
     localStorage.removeItem("foundMovies");
     localStorage.removeItem("isSearchBtnHandled");
-    localStorage.removeItem("isSearchSavedBtnHandled");
     localStorage.removeItem("searchQuery");
     localStorage.removeItem("isShortBtnActive");
   }
@@ -188,8 +186,6 @@ const App = () => {
             onBurger={handleBurger}
             isLoading={isLoading}
             setIsLoading={setIsLoading}
-            isSearchSavedBtnHandled={isSearchSavedBtnHandled}
-            setIsSearchSavedBtnHandled={setIsSearchSavedBtnHandled}
             savedMovies={savedMovies}
             setSavedMovies={setSavedMovies}
             openErrorPopup={openErrorPopup}            

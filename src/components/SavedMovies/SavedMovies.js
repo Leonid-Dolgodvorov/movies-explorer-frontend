@@ -33,31 +33,19 @@ const SavedMovies = ({
   const [slicedMoviesArr, setSlicedMoviesArr] = React.useState([]);
 
   React.useEffect(() => {
-    setSlicedMoviesArr(foundSavedMovies.slice(0, sliceQuantity))
+    setSlicedMoviesArr(foundSavedMovies.slice(0, sliceQuantity));
+    console.log(foundSavedMovies)
   }, [foundSavedMovies, sliceQuantity]);
 
   React.useEffect(() => {
       setIsLoading(true);
-      setIsSearchSavedBtnHandled(localStorage.getItem("isSearchSavedBtnHandled"));
       Promise.all([mainApi.getUserMovies()])
         .then(([savedMoviesList]) => {
           setSavedMovies(savedMoviesList.data);
-          setFoundSavedMovies(searchMovies(savedMoviesList.data, searchQuery));
+          setFoundSavedMovies(savedMoviesList.data);
         })
         .catch((err) => openErrorPopup(errorHandler(err)))
         .finally(() => setIsLoading(false))
-  }, []);
-
-  React.useEffect(() => {
-    if (localStorage.searchQuery) {
-      setSearchQuery(localStorage.getItem("searchQuery"));
-    };
-  }, []);
-
-  React.useEffect(() => {
-    if (localStorage.isShortBtnActive) {
-      setIsShortBtnActive(Boolean(localStorage.getItem("isShortBtnActive")));
-    };
   }, []);
 
   React.useEffect(() => {
@@ -85,13 +73,11 @@ const SavedMovies = ({
     Promise.all([mainApi.getUserMovies()])
       .then(([savedMoviesList]) => {
         setFoundSavedMovies(searchMovies(savedMoviesList.data, searchQuery));        
-        localStorage.setItem("searchQuery", searchQuery);
       })
       .catch((err) => openErrorPopup(errorHandler(err)))
       .finally(() => {
         setIsLoading(false);
         setIsSearchSavedBtnHandled(true);
-        localStorage.setItem("isSearchSavedBtnHandled", true);
       });
   };
 
@@ -126,9 +112,7 @@ const SavedMovies = ({
           handleSearch={handleSearch}
           />
         <Preloader isLoading={isLoading}/>
-        {isSearchSavedBtnHandled ?
-          <>
-            <MoviesCardList
+        <MoviesCardList
               slicedMoviesArr={isShortBtnActive ? 
                 findShortMovies(foundSavedMovies)
                 :
@@ -138,11 +122,6 @@ const SavedMovies = ({
               deleteMovie={deleteSavedMovie}
               isSearchSavedBtnHandled={isSearchSavedBtnHandled}
             />
-          </>
-            : 
-            <>
-            </>            
-        }
       </div>      
       <Footer/>
       </>

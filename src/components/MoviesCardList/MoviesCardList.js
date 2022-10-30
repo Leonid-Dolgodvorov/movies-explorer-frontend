@@ -38,7 +38,7 @@ const MoviesCardList = ({
         </>
       :
       <>
-        {isSearchSavedBtnHandled && slicedMoviesArr.length ?
+        {slicedMoviesArr.length ?
           <ul className="movies__cards">
             {slicedMoviesArr.map((movie) => {
               return (
