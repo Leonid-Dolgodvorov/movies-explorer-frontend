@@ -3,7 +3,7 @@ import React from "react"
 
 import avatar from "../../images/avatar.jpg";
 
-function AboutMe() {
+const AboutMe = () => {
   return (
     <section className="aboutme">
       <h2 className="aboutme__title">Студент</h2>
@@ -14,12 +14,20 @@ function AboutMe() {
               <p className="aboutme__info">Родился и проживаю в г.Екатеринбург. Закончил бакалавриат и магистратуру УрГУ (ныне УрФУ) по специальности "Экономическая теория".</p>
                 <div className="aboutme__links">
                   <div className="aboutme__social-item">
-                    <a className="aboutme__link" href="https://t.me/dolgodvorovl" target="_blank">
+                    <a
+                      className="aboutme__link"
+                      href="https://t.me/dolgodvorovl"
+                      target="_blank"
+                      rel="noreferrer">
                       Telegram
                     </a>
                   </div>
                   <div className="aboutme__social-item">
-                    <a className="aboutme__link" href="https://github.com/Leonid-Dolgodvorov" target="_blank">
+                    <a
+                      className="aboutme__link"
+                      href="https://github.com/Leonid-Dolgodvorov"
+                      target="_blank"
+                      rel="noreferrer">
                       Github
                     </a>
                   </div>
@@ -31,18 +39,33 @@ function AboutMe() {
           <h3 className="portfolio__title">Портфолио</h3>
           <ul className="portfolio__projects">
             <li className="portfolio__project">
-              <a className="portfolio__link" href="https://leonid-dolgodvorov.github.io/russian-travel/index.html" target="_blank">
-                Статичный сайт <p className="portfolio__icon">&#8599;</p>
+              <a
+                className="portfolio__link"
+                href="https://leonid-dolgodvorov.github.io/russian-travel/index.html"
+                target="_blank"
+                rel="noreferrer">
+                Статичный сайт
+                <p className="portfolio__icon">&#8599;</p>
               </a>
             </li>
             <li className="portfolio__project">
-              <a className="portfolio__link" href="https://leonid-dolgodvorov.github.io/mesto/index.html" target="_blank">
-                Адаптивный сайт <p className="portfolio__icon">&#8599;</p>
+              <a
+                className="portfolio__link"
+                href="https://leonid-dolgodvorov.github.io/mesto/index.html"
+                target="_blank"
+                rel="noreferrer">
+                Адаптивный сайт
+                <p className="portfolio__icon">&#8599;</p>
               </a>
             </li>
             <li className="portfolio__project">
-              <a className="portfolio__link" href="https://leonid-dolgodvorov.github.io/mesto/index.html" target="_blank">
-                Одностраничное приложение <p className="portfolio__icon">&#8599;</p>
+              <a
+                className="portfolio__link"
+                href="https://leonid-dolgodvorov.github.io/mesto/index.html"
+                target="_blank"
+                rel="noreferrer">
+                Одностраничное приложение
+                <p className="portfolio__icon">&#8599;</p>
               </a>
             </li>
           </ul>

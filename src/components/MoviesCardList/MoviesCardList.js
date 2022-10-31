@@ -1,23 +1,61 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-function MoviesCardList() {
+const MoviesCardList = ({
+  slicedMoviesArr,
+  savedMovies,
+  saveMovie,
+  deleteMovie,
+  isSearchBtnHandled,
+  isSearchSavedBtnHandled
+}) => {
+
+  const location = useLocation();
+
+  const isMovieSaved = (movie) => savedMovies.some(savedMovie => savedMovie.movieId === movie.id);
   return (
     <section className="movies__card-list">
-      <ul className="movies__cards">
-        <MoviesCard/>
-        <MoviesCard/>
-        <MoviesCard/>
-        <MoviesCard/>
-        <MoviesCard/>
-        <MoviesCard/>
-        <MoviesCard/>
-        <MoviesCard/>
-        <MoviesCard/>
-        <MoviesCard/>
-        <MoviesCard/>
-      </ul>
+      {location.pathname === "/movies" ?
+        <>
+          {isSearchBtnHandled && slicedMoviesArr.length ?
+            <ul className="movies__cards">
+              {slicedMoviesArr.map((movie) => {
+                return (
+                  <MoviesCard
+                    key={movie.id || movie._id}
+                    isSaved={isMovieSaved(movie)}
+                    savedMovies={savedMovies}
+                    saveMovie={saveMovie}
+                    deleteMovie={deleteMovie}
+                    movie={movie}/>)}
+              )}
+            </ul>
+          :
+            <p className="movies__not-found-text">Ничего не найдено</p>
+          }
+        </>
+      :
+      <>
+        {slicedMoviesArr.length ?
+          <ul className="movies__cards">
+            {slicedMoviesArr.map((movie) => {
+              return (
+                <MoviesCard
+                  key={movie.id || movie._id}
+                  isSaved={isMovieSaved(movie)}
+                  savedMovies={savedMovies}
+                  saveMovie={saveMovie}
+                  deleteMovie={deleteMovie}
+                  movie={movie}/>)}
+              )}
+          </ul>
+          :
+            <p className="movies__not-found-text">Ничего не найдено</p>
+          }
+      </>
+      }
     </section>
   );
 };

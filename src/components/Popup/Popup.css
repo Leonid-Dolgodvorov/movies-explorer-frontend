@@ -1,0 +1,123 @@
+.popup {
+  display: flex;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.5s linear;
+  background-color: rgba(0,0,0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+}
+
+.popup_opened {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 430px;
+  height: 330px;
+  background-color: #fff;
+  box-shadow: 0px 0px 25px rgb(0 0 0 / 15%);
+  border-radius: 10px;
+}
+
+.popup__image {
+  margin-top: 10px;
+  width: 120px;
+  height: 120px;
+  background: none;
+}
+
+.popup__text {
+  text-align: center;
+  color: #000;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+  max-width: 280px;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+.popup__close-button {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  border: 0;
+  background-color: transparent;
+}
+
+.popup__close-button:before {
+  position: absolute;
+  height: 34px;
+  content: '';
+  left: 45%;
+  top: -5%;
+  border: 2px solid #fff;
+  background-color: #fff;
+  transform: rotate(45deg);
+}
+
+.popup__close-button:after {
+  position: absolute;
+  height: 34px;
+  content: '';
+  left: 45%;
+  top: -5%;
+  border: 2px solid #fff;
+  background-color: #fff;
+  transform: rotate(-45deg);
+}
+
+@media screen and (max-width: 500px) {
+  .popup__container {
+    width: 282px;
+    height: 308px;
+  }
+  .popup__text {
+    font-size: 20px;
+    line-height: 20px;
+    max-width: 280px;
+  }
+  .popup__close-button {
+    top: -35px;
+    right: 0;
+    width: 20px;
+    height: 20px;
+  }
+  .popup__close-button:before {
+    position: absolute;
+    height: 22px;
+    content: '';
+    left: 40%;
+    top: -10%;
+    border: 2px solid #fff;
+    background-color: #fff;
+    transform: rotate(45deg);
+  }
+  
+  .popup__close-button:after {
+    position: absolute;
+    height: 22px;
+    content: '';
+    left: 40%;
+    top: -10%;
+    border: 2px solid #fff;
+    background-color: #fff;
+    transform: rotate(-45deg);
+  }
+}
